@@ -1,0 +1,67 @@
+:root{
+/* --- Base ramp: gold (from the logo mark, #B88840) --- */
+--gold-50:#FBF6EE;--gold-100:#F3E7D2;--gold-200:#E6CFA6;--gold-300:#D6B378;--gold-400:#C79B56;
+--gold-500:#B88840;--gold-600:#9C7134;--gold-700:#7B592A;--gold-800:#5A4020;--gold-900:#3A2A15;
+
+/* --- Base ramp: ink (wordmark charcoal, #181818) --- */
+--ink-900:#111111;--ink-800:#1A1A1A;--ink-700:#2A2A28;--ink-600:#3D3D3A;--ink-500:#55554F;
+--ink-400:#75746C;--ink-300:#9A9890;--ink-200:#C2C0B7;--ink-100:#E0DDD4;--ink-50:#EFEDE6;
+
+/* --- Base ramp: paper (warm off-white ground, #F8F8F6) --- */
+--paper-000:#FFFFFF;--paper-050:#FBFAF7;--paper-100:#F6F4EF;--paper-200:#EFECE4;--paper-300:#E4E0D5;
+
+/* --- Base ramp: clay (secondary warm neutral — laterite / red earth) --- */
+--clay-100:#F0E5DE;--clay-300:#D3B7A6;--clay-500:#A9754F;--clay-700:#6F4A31;
+
+/* --- Base ramp: blueprint blue (secondary brand colour — the optical complement
+   of the gold; drafting ink, technical contexts, the one cool deep field) --- */
+--blue-50:#F0F4F9;--blue-100:#DBE3EE;--blue-200:#B6C6DB;--blue-300:#8AA2C1;--blue-400:#5C7CA3;
+--blue-500:#3C5C85;--blue-600:#2E4869;--blue-700:#22364F;--blue-800:#182739;--blue-900:#101B27;
+
+/* --- Base ramp: slate (neutral cool grey — rules and plates inside blue fields) --- */
+--slate-100:#E3E7E8;--slate-300:#AAB4B7;--slate-500:#5E6E73;--slate-700:#39474B;
+
+/* --- Semantic --- */
+--status-success:#4E7A4A;--status-warning:#C79B56;
+--status-error:#9E3B2E;--status-info:var(--blue-500);
+
+/* --- Aliases: surfaces --- */
+--surface-page:var(--paper-100);
+--surface-raised:var(--paper-000);
+--surface-sunken:var(--paper-200);
+--surface-card:var(--paper-000);
+--surface-inverse:var(--ink-800);
+--surface-deep:var(--blue-800);
+--surface-deep-soft:var(--blue-50);
+--surface-plate:var(--blue-300);
+--surface-accent:var(--gold-500);
+--surface-accent-soft:var(--gold-50);
+
+/* --- Aliases: text --- */
+--text-heading:var(--ink-900);
+--text-body:var(--ink-700);
+--text-muted:var(--ink-400);
+--text-accent:var(--gold-600);
+--text-accent-cool:var(--blue-600);
+--text-on-accent:var(--ink-900);
+--text-on-inverse:var(--paper-100);
+--text-on-inverse-muted:var(--ink-200);
+--text-on-deep:var(--paper-100);
+--text-on-deep-muted:var(--blue-200);
+
+/* --- Aliases: lines --- */
+--line-hairline:var(--ink-100);
+--line-rule:var(--ink-200);
+--line-strong:var(--ink-800);
+--line-accent:var(--gold-500);
+--line-inverse:rgba(248,246,242,.22);
+--line-deep:rgba(182,198,219,.28);
+--line-accent-cool:var(--blue-500);
+
+/* --- Aliases: interactive --- */
+--action-primary:var(--ink-900);
+--action-primary-hover:var(--ink-700);
+--action-accent:var(--gold-500);
+--action-accent-hover:var(--gold-600);
+--focus-ring:var(--gold-500);
+}

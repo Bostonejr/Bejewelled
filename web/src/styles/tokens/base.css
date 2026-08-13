@@ -1,0 +1,10 @@
+body{margin:0;background:var(--surface-page);color:var(--text-body);font:var(--type-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4{color:var(--text-heading);font-family:var(--font-display);font-weight:var(--weight-regular);margin:0}
+p{margin:0;text-wrap:pretty}
+/* Gap #08 in docs/PLAN.md: the design system golds every <a> on the page, which
+   is right for prose and wrong for nav, footer, cards and buttons — the design
+   file overrides it inline nine times. Scoped to .prose so the overrides vanish. */
+.prose a{color:var(--text-accent);text-decoration:none;border-bottom:1px solid var(--gold-200);transition:var(--transition-control)}
+.prose a:hover{color:var(--gold-700);border-bottom-color:var(--gold-500)}
+:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
+::selection{background:var(--gold-200);color:var(--ink-900)}

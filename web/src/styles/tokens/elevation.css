@@ -1,0 +1,11 @@
+:root{
+--shadow-none:none;
+--shadow-xs:0 1px 2px rgba(26,26,26,.06);
+--shadow-sm:0 1px 3px rgba(26,26,26,.07),0 1px 1px rgba(26,26,26,.04);
+--shadow-md:0 4px 14px rgba(26,26,26,.08);
+--shadow-lg:0 14px 40px rgba(26,26,26,.10);
+--shadow-inset-rule:inset 0 -1px 0 var(--line-hairline);
+--overlay-scrim:linear-gradient(to top,rgba(17,17,17,.78) 0%,rgba(17,17,17,.34) 46%,rgba(17,17,17,0) 100%); /* @kind other */
+--overlay-veil:rgba(17,17,17,.62);
+--blur-veil:blur(10px); /* @kind other */
+}

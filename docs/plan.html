@@ -1,0 +1,839 @@
+<title>Bejewelled Build Plan</title>
+
+<style>
+/* ============================================================
+   Palette lifted from the imported Bejewelled design system.
+   Light is the brand's native state; dark is derived, keeping
+   gold as the only interactive accent and blue as a field.
+   ============================================================ */
+:root{
+  --paper-000:#FFFFFF; --paper-050:#FBFAF7; --paper-100:#F6F4EF;
+  --paper-200:#EFECE4; --paper-300:#E4E0D5;
+  --ink-900:#111111; --ink-800:#1A1A1A; --ink-700:#2A2A28; --ink-500:#55554F;
+  --ink-400:#75746C; --ink-300:#9A9890; --ink-200:#C2C0B7; --ink-100:#E0DDD4;
+  --gold-100:#F3E7D2; --gold-200:#E6CFA6; --gold-300:#D6B378; --gold-400:#C79B56;
+  --gold-500:#B88840; --gold-600:#9C7134; --gold-700:#7B592A;
+  --blue-100:#DBE3EE; --blue-200:#B6C6DB; --blue-500:#3C5C85;
+  --blue-700:#22364F; --blue-800:#182739; --blue-900:#101B27;
+
+  --ground:var(--paper-100);
+  --raised:var(--paper-050);
+  --card:var(--paper-000);
+  --deep:var(--blue-800);
+  --sunken:var(--paper-200);
+
+  --heading:var(--ink-900);
+  --body:var(--ink-700);
+  --muted:var(--ink-400);
+  --accent:var(--gold-600);
+  --accent-mark:var(--gold-500);
+  --on-deep:var(--paper-100);
+  --on-deep-muted:var(--blue-200);
+  --on-deep-eyebrow:var(--gold-200);
+
+  --hairline:var(--ink-100);
+  --rule:var(--ink-200);
+  --strong:var(--ink-800);
+  --line-accent:var(--gold-500);
+  --line-deep:rgba(182,198,219,.28);
+
+  --ok-bg:#E6EFE4; --ok-fg:#3E6539;
+  --warn-bg:var(--gold-100); --warn-fg:var(--gold-700);
+
+  --font-display:Georgia,"Times New Roman",serif;
+  --font-text:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+
+  --shadow-sm:0 1px 3px rgba(26,26,26,.07),0 1px 1px rgba(26,26,26,.04);
+  --max:1180px;
+  --gutter:56px;
+  --rail:44px;
+}
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E0E0D;
+    --raised:#151513;
+    --card:#171716;
+    --deep:var(--blue-900);
+    --sunken:#1C1C1A;
+
+    --heading:#F2EFE7;
+    --body:#CFCCC2;
+    --muted:#8E8C84;
+    --accent:var(--gold-300);
+    --accent-mark:var(--gold-400);
+    --on-deep:var(--paper-100);
+    --on-deep-muted:var(--blue-200);
+    --on-deep-eyebrow:var(--gold-200);
+
+    --hairline:#2C2C29;
+    --rule:#3A3A36;
+    --strong:#5A5A54;
+    --line-accent:var(--gold-500);
+
+    --ok-bg:#1B2A1B; --ok-fg:#8FBE88;
+    --warn-bg:#2A2113; --warn-fg:var(--gold-300);
+
+    --shadow-sm:0 1px 3px rgba(0,0,0,.5),0 1px 1px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E0E0D;
+  --raised:#151513;
+  --card:#171716;
+  --deep:var(--blue-900);
+  --sunken:#1C1C1A;
+
+  --heading:#F2EFE7;
+  --body:#CFCCC2;
+  --muted:#8E8C84;
+  --accent:var(--gold-300);
+  --accent-mark:var(--gold-400);
+  --on-deep:var(--paper-100);
+  --on-deep-muted:var(--blue-200);
+  --on-deep-eyebrow:var(--gold-200);
+
+  --hairline:#2C2C29;
+  --rule:#3A3A36;
+  --strong:#5A5A54;
+  --line-accent:var(--gold-500);
+
+  --ok-bg:#1B2A1B; --ok-fg:#8FBE88;
+  --warn-bg:#2A2113; --warn-fg:var(--gold-300);
+
+  --shadow-sm:0 1px 3px rgba(0,0,0,.5),0 1px 1px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--body);
+  font-family:var(--font-text);
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* --- the sheet rail, echoing the site's own fixed 44px rail --- */
+.rail{
+  position:fixed; left:0; top:0; bottom:0; width:var(--rail); z-index:5;
+  background:var(--raised); border-right:1px solid var(--hairline);
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:space-between; padding:18px 0;
+}
+.rail-dot{width:7px;height:7px;background:var(--accent-mark)}
+.rail-label{
+  writing-mode:vertical-rl; transform:rotate(180deg);
+  font-family:var(--font-mono); font-size:10px; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--muted); white-space:nowrap;
+}
+.rail-no{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;color:var(--accent)}
+
+.shell{margin-left:var(--rail)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+
+/* --- type roles --- */
+h1,h2,h3,h4{
+  font-family:var(--font-display); font-weight:400; color:var(--heading);
+  margin:0; text-wrap:balance; letter-spacing:-.01em;
+}
+h1{font-size:clamp(38px,5vw,58px);line-height:1.04}
+h2{font-size:clamp(27px,3vw,36px);line-height:1.22}
+h3{font-size:21px;line-height:1.28}
+h4{font-size:17px;line-height:1.35}
+p{margin:0;text-wrap:pretty;max-width:70ch}
+
+.eyebrow{
+  font-size:12px;font-weight:500;line-height:1.4;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--accent);
+}
+.eyebrow.muted{color:var(--muted)}
+.eyebrow.on-deep{color:var(--on-deep-eyebrow)}
+.label{
+  font-family:var(--font-mono);font-size:11px;line-height:1.4;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);
+}
+.lede{font-size:18px;line-height:1.65;color:var(--body)}
+small{font-size:14px;line-height:1.5}
+strong{font-weight:600;color:var(--heading)}
+code{
+  font-family:var(--font-mono);font-size:.86em;
+  background:var(--sunken);color:var(--heading);
+  padding:1px 5px;border-radius:3px;
+}
+
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--gold-200)}
+a:hover{color:var(--gold-700);border-bottom-color:var(--accent-mark)}
+:focus-visible{outline:2px solid var(--accent-mark);outline-offset:2px}
+::selection{background:var(--gold-200);color:var(--ink-900)}
+
+/* --- masthead --- */
+.masthead{
+  padding:84px 0 0;
+  background-image:
+    linear-gradient(to right,color-mix(in srgb,var(--strong) 14%,transparent) 1px,transparent 1px),
+    linear-gradient(to bottom,color-mix(in srgb,var(--strong) 14%,transparent) 1px,transparent 1px);
+  background-size:56px 56px;
+}
+.masthead-inner{padding-bottom:52px;border-bottom:2px solid var(--strong)}
+.masthead h1{margin-top:24px}
+.masthead .lede{margin-top:26px;max-width:60ch}
+.meta{
+  display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:34px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);
+}
+
+/* --- sections --- */
+section{padding-top:88px}
+.sec-head{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:32px;
+  padding-bottom:20px;border-bottom:1px solid var(--rule);
+}
+.sec-head h2{margin-top:12px}
+.sheet{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.body-stack{display:flex;flex-direction:column;gap:24px;margin-top:32px}
+
+/* --- split: wide prose left, narrow facts right --- */
+.split{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:64px;align-items:start;margin-top:32px}
+
+/* --- tables --- */
+.tbl-scroll{overflow-x:auto;margin-top:28px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.55}
+th,td{text-align:left;padding:14px 20px 14px 0;vertical-align:top;border-bottom:1px solid var(--hairline)}
+th{
+  font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--rule);white-space:nowrap;
+}
+td:first-child{color:var(--heading)}
+td code{background:none;padding:0;color:var(--accent)}
+tbody tr:last-child td{border-bottom:none}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* --- code block --- */
+pre{
+  margin:28px 0 0;padding:24px 26px;overflow-x:auto;
+  background:var(--card);border:1px solid var(--hairline);border-radius:4px;
+  font-family:var(--font-mono);font-size:12.5px;line-height:1.7;color:var(--body);
+}
+pre b{color:var(--accent);font-weight:400}
+pre i{color:var(--muted);font-style:normal}
+
+/* --- the one blue field, per the brand's three-background rule --- */
+.deep{background:var(--deep);color:var(--on-deep);margin-top:88px;padding:80px 0}
+.deep h2,.deep h3{color:var(--on-deep)}
+.deep p{color:var(--on-deep-muted)}
+.deep .label{color:var(--on-deep-muted)}
+.deep .sec-head{border-bottom-color:var(--line-deep)}
+.deep .sheet{color:var(--on-deep-muted)}
+.deep code{background:rgba(255,255,255,.08);color:var(--gold-200)}
+
+/* --- phases: a real sequence, so real numbering --- */
+.phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px 48px;margin-top:56px}
+.phase{border-top:3px solid var(--line-accent);padding-top:20px}
+.phase-n{font-family:var(--font-mono);font-size:14px;color:var(--gold-400);font-variant-numeric:tabular-nums}
+.phase h3{margin-top:10px}
+.phase p{margin-top:12px;font-size:14.5px;line-height:1.6}
+.phase .check{
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--line-deep);
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--gold-200);
+}
+
+/* --- gap ledger --- */
+.gaps{margin-top:36px;border-top:1px solid var(--rule)}
+.gap{
+  display:grid;grid-template-columns:52px minmax(0,1fr);gap:24px;
+  padding:24px 0;border-bottom:1px solid var(--hairline);align-items:start;
+}
+.gap-n{font-family:var(--font-mono);font-size:13px;color:var(--accent);font-variant-numeric:tabular-nums;padding-top:2px}
+.gap h4{margin-bottom:8px}
+.gap p{font-size:14.5px;line-height:1.6}
+.gap p + p{margin-top:10px}
+
+.chip{
+  display:inline-block;padding:3px 10px;border-radius:999px;
+  font-family:var(--font-text);font-size:10.5px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;vertical-align:2px;margin-left:10px;
+}
+.chip.ok{background:var(--ok-bg);color:var(--ok-fg)}
+.chip.warn{background:var(--warn-bg);color:var(--warn-fg)}
+
+/* --- fact card --- */
+.facts{background:var(--card);border:1px solid var(--hairline);border-radius:4px;padding:28px}
+.facts .row{padding:14px 0;border-bottom:1px solid var(--hairline)}
+.facts .row:first-of-type{padding-top:0}
+.facts .row:last-child{border-bottom:none;padding-bottom:0}
+.facts .v{color:var(--heading);margin-top:5px;font-size:14.5px;line-height:1.5}
+
+/* --- asks --- */
+.asks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;margin-top:36px;border-top:1px solid var(--rule)}
+.ask{padding:26px 28px 26px 0;border-bottom:1px solid var(--hairline);border-right:1px solid var(--hairline)}
+.ask:last-child{border-right:none}
+.ask h4{margin-top:10px}
+.ask p{margin-top:10px;font-size:14px;line-height:1.55}
+
+footer{
+  margin-top:96px;padding:36px 0 44px;border-top:1px solid var(--rule);
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);
+  display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;
+}
+
+@media (max-width:860px){
+  :root{--gutter:22px;--rail:0px}
+  .rail{
+    position:static;width:auto;height:6px;flex-direction:row;padding:0;
+    background:var(--accent-mark);border-right:none;
+  }
+  .rail-label,.rail-no,.rail-dot{display:none}
+  .shell{margin-left:0}
+  .split{grid-template-columns:minmax(0,1fr);gap:40px}
+  .masthead{padding-top:48px;background-size:32px 32px}
+  section{padding-top:64px}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:10px}
+  .gap{grid-template-columns:38px minmax(0,1fr);gap:16px}
+  .ask{border-right:none}
+  .deep{padding:60px 0;margin-top:64px}
+}
+</style>
+
+<div class="rail" aria-hidden="true">
+  <div class="rail-dot"></div>
+  <div class="rail-label">Bejewelled Enterprise · Kumasi, Ghana</div>
+  <div class="rail-no">00</div>
+</div>
+
+<div class="shell">
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="masthead-inner">
+      <div class="eyebrow muted">Build Plan</div>
+      <h1>Bejewelled, from design file to live site</h1>
+      <p class="lede">Six screens, a Sanity-managed portfolio, and a working enquiry form — built directly off the imported Claude Design tokens so nothing drifts between the design and the site.</p>
+      <div class="meta">
+        <span>Next.js 15 · Sanity v4 · Tailwind v4</span>
+        <span>Design 701da384 imported 13 Aug 2026</span>
+        <span>8 phases</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 01 IMPORT ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">The Import</div>
+        <h2>What came across</h2>
+      </div>
+      <div class="sheet">Sheet 01 / 08</div>
+    </div>
+
+    <div class="split">
+      <div class="body-stack">
+        <p>The design project pulled down clean: one 704-line HTML file carrying every screen, a 2 499-line bundle with the real component implementations, seven token stylesheets, and five transparent logo marks.</p>
+        <p>The design renders <strong>six screens</strong> off a single hash router — home, services, construction, designs, project, contact. There is no About page; the leadership and credentials content sits in the lower third of Home. That matches your brief exactly, so the route map needs no reconciliation.</p>
+        <p>Reading the bundle rather than eyeballing the render matters here: it hands over the exact hover, press and focus behaviour of all fourteen primitives the site uses, so the port is a transcription rather than an approximation.</p>
+      </div>
+
+      <div class="facts">
+        <div class="row">
+          <div class="label">Design file</div>
+          <div class="v">Bejewelled Website.dc.html — 704 lines, 6 screens</div>
+        </div>
+        <div class="row">
+          <div class="label">Component bundle</div>
+          <div class="v">21 components, 14 in active use</div>
+        </div>
+        <div class="row">
+          <div class="label">Token sheets</div>
+          <div class="v">colours · typography · spacing · elevation · motion · fonts · base</div>
+        </div>
+        <div class="row">
+          <div class="label">Brand assets</div>
+          <div class="v">lockup, mark and wordmark — light and dark variants</div>
+        </div>
+        <div class="row">
+          <div class="label">Photography on hand</div>
+          <div class="v">5 project folders · 39 images · 116 MB</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 STACK ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">The Stack</div>
+        <h2>Next.js, Sanity, Tailwind v4</h2>
+      </div>
+      <div class="sheet">Sheet 02 / 08</div>
+    </div>
+
+    <div class="body-stack">
+      <p class="lede">Every choice below is answering something the brief actually asked for, not filling out a default template.</p>
+    </div>
+
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th style="width:34%">Requirement</th><th>Why this stack answers it</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>“Exactly as Claude Design made it”</td>
+            <td>The design is entirely CSS-custom-property driven, and Tailwind v4’s <code>@theme</code> is itself CSS variables. The tokens port verbatim — no translation layer, no rounded-off values.</td>
+          </tr>
+          <tr>
+            <td>Designs page and every project under CMS control</td>
+            <td><code>next-sanity</code> v11 <code>defineLive</code> gives real-time content with no cache plumbing; the Presentation tool gives click-to-edit against a live preview.</td>
+          </tr>
+          <tr>
+            <td>Findable by clients and tender bodies</td>
+            <td>Server components ship real HTML. Per-page metadata from Sanity, generated sitemap and robots, and <code>ProfessionalService</code> JSON-LD carrying the Apire address and both phone numbers.</td>
+          </tr>
+          <tr>
+            <td>116 MB of project photography</td>
+            <td>Sanity’s CDN handles transforms and modern formats; <code>next/image</code> handles sizing and blur-up placeholders.</td>
+          </tr>
+          <tr>
+            <td>A contact form that genuinely sends</td>
+            <td>Web3Forms behind a Next.js route handler — the access key stays server-side and the submission gets validated and rate-limited before it leaves.</td>
+          </tr>
+          <tr>
+            <td>Edit content without touching code</td>
+            <td>One singleton document per page plus a project collection. Every visible string on the site is a field.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="body-stack">
+      <p><strong>Considered and set aside.</strong> Astro — you asked for React. A plain Vite SPA — gives up the SEO that a practice bidding public work actually needs. Embedding the Studio inside Next.js — slower builds, no auto-updates, and Sanity’s own guidance is against it.</p>
+    </div>
+
+    <pre><i>// The whole port hangs on this bridge. @theme inline is load-bearing:
+// with plain @theme, Tailwind emits the literal var() string into every
+// utility and opacity modifiers like bg-ink-900/60 stop resolving.</i>
+
+@import "tailwindcss";
+@import "./tokens/colors.css";      <i>// verbatim from the design system</i>
+@import "./tokens/typography.css";
+
+<b>@theme inline</b> {
+  --color-gold-500:  var(--gold-500);      <i>// → bg-gold-500, text-gold-500…</i>
+  --color-surface-deep: var(--surface-deep);
+  --font-display:    var(--font-marcellus), Georgia, serif;
+  --spacing-11:      128px;
+  --ease-standard:   cubic-bezier(.22,.61,.36,1);
+}</pre>
+
+    <div class="body-stack">
+      <p>The token files are dropped in <strong>byte-identical</strong>. Re-run the import when the design changes and the whole site follows. The composite <code>font:</code> shorthands — <code>--type-h1</code>, <code>--type-eyebrow</code> — have no Tailwind equivalent, so they become a thin set of component classes used wherever a heading or eyebrow appears.</p>
+      <p>The design system’s <code>fonts.css</code> pulls Marcellus, Archivo and IBM Plex Mono from Google at runtime — a render-blocking third-party request and a guaranteed layout shift. Same faces, same weights, moved to <code>next/font</code> and self-hosted.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 CONTENT MODEL ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">The Content Model</div>
+        <h2>Two collections, seven singletons</h2>
+      </div>
+      <div class="sheet">Sheet 03 / 08</div>
+    </div>
+
+    <div class="body-stack">
+      <p class="lede">The schema is shaped by how the design consumes content, not by how the pages happen to look today. Field names would survive a redesign.</p>
+    </div>
+
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th style="width:24%">Document</th><th>What it holds</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>project</code><br><small style="color:var(--muted)">collection</small></td>
+            <td>Title, slug, client, scope of works, location, sector reference, status, year, main image, gallery, commission note, drag-order rank, SEO.</td>
+          </tr>
+          <tr>
+            <td><code>sector</code><br><small style="color:var(--muted)">collection</small></td>
+            <td>A controlled, reorderable vocabulary — Residential, Commercial, Educational, Industrial, Healthcare — driving the filter chips.</td>
+          </tr>
+          <tr>
+            <td><code>siteSettings</code></td>
+            <td>Both company names, tagline, phone numbers, address, digital address, registration line, nav items, rail label, footer columns, the shared call-to-action band, default SEO.</td>
+          </tr>
+          <tr>
+            <td><code>homePage</code></td>
+            <td>Hero, credential strip, about block, practice-record stats, the four disciplines, selected works with an explicit featured trio, and the leadership block with its credential rows.</td>
+          </tr>
+          <tr>
+            <td><code>servicesPage</code></td>
+            <td>Header, intro, the three services each with their tag and bullet list, the construction band, and the sectors grid.</td>
+          </tr>
+          <tr>
+            <td><code>constructionPage</code></td>
+            <td>Header, site photograph and caption, the four stages, the two-column comparison rows, and the capability list.</td>
+          </tr>
+          <tr>
+            <td><code>designsPage</code></td>
+            <td>Header, intro, and the default view — plates or index.</td>
+          </tr>
+          <tr>
+            <td><code>contactPage</code></td>
+            <td>Header, form intro, service options, success message, contact field rows, map image and caption.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="split">
+      <div class="body-stack">
+        <h3>Numbering is derived, never typed</h3>
+        <p>The brand numbers everything <code>01</code>, <code>02</code>, <code>03</code> — the design system is explicit that this is a system, not decoration. So editors never enter a number. Position in the ordered list produces it at render time.</p>
+        <p>Insert a project at position three and everything below renumbers, including the previous/next record links at the foot of each project page. Reordering is a drag in the Studio.</p>
+      </div>
+      <div class="body-stack">
+        <h3>The Studio carries the brand law</h3>
+        <p>The seven singletons pin to the top of the sidebar; projects sit below as a drag-orderable list. Every document gets an icon.</p>
+        <p>Field descriptions carry the rules that actually bite in daily editing: Ghanaian and British spelling — <em>recognised</em>, <em>programme</em>, <em>centred</em>. The practice writes <strong>wholistic</strong>, not holistic. No emoji. Exclamation marks only in the tagline.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 PHOTOGRAPHY + FORM ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Photography &amp; The Form</div>
+        <h2>Getting real content in</h2>
+      </div>
+      <div class="sheet">Sheet 04 / 08</div>
+    </div>
+
+    <div class="split">
+      <div class="body-stack">
+        <h3>Project Images → Sanity</h3>
+        <p>A seed script walks the folder. Each folder name becomes the project title and slug; the <code>main</code> image becomes the thumbnail and the project hero; everything else joins the gallery, sorted naturally so <code>Img_6</code> precedes <code>Img_10</code>.</p>
+        <p>Uploads dedupe on content hash, so re-running is safe. Documents are created as <strong>drafts</strong> with their order set — you review and publish.</p>
+        <p>One catch already handled: <em>Agogo Makro</em> spells its main image with a capital M, so the match is case-insensitive.</p>
+      </div>
+      <div class="body-stack">
+        <h3>The enquiry form</h3>
+        <p>The browser posts to a route handler, which posts to Web3Forms. Going through the server rather than straight from the page buys four things: the access key never enters the JavaScript bundle, submissions are validated before they can reach your inbox, an IP rate limit sits on top of Web3Forms’ own, and swapping provider later touches exactly one file.</p>
+        <p>A honeypot field is rejected server-side. The reply-to is set to the sender, and the subject names them, so replying is one click.</p>
+        <p>On success the form is replaced in place by the design’s own confirmation — gold rule, “Thank you.”, and the two-working-day promise with the direct line.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 GAPS ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">The Gap Ledger</div>
+        <h2>Where design, brief and reality disagree</h2>
+      </div>
+      <div class="sheet">Sheet 05 / 08</div>
+    </div>
+
+    <div class="body-stack">
+      <p class="lede">You asked for the loopholes. These are all of them. Thirteen are closed by how the build is constructed; six need a decision from you.</p>
+    </div>
+
+    <div class="gaps">
+
+      <div class="gap">
+        <div class="gap-n">01</div>
+        <div>
+          <h4>No mobile design exists<span class="chip ok">Closed</span></h4>
+          <p>The design is desktop-only throughout: fixed 56 px gutters, a 44 px rail that would swallow a phone screen, a two-column comparison table, and a four-column project row.</p>
+          <p>Rather than invent a second visual language, the responsive behaviour is derived from rules the brand already states. Gutters step down. The rail collapses to a gold top bar. The header becomes lockup plus hamburger, using the veil-and-blur mobile menu the design system already specifies. The comparison table stacks into labelled pairs. <strong>No new colours, radii or type sizes are introduced.</strong></p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">02</div>
+        <div>
+          <h4>A logo variant is referenced but missing<span class="chip ok">Closed</span></h4>
+          <p>The <code>Logo</code> component points at <code>logo-lockup-ink.png</code>, which isn’t in the project. It’s a print-only variant with no web use, so that branch is dropped rather than shipping a broken image.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">03</div>
+        <div>
+          <h4>“All 30+ projects” is hardcoded<span class="chip ok">Closed</span></h4>
+          <p>So are the 30+ / 20+ / 4 / 2013 figures. Left alone, the site would claim thirty commissions while displaying five. All become editable fields.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">04</div>
+        <div>
+          <h4>Featured projects are a hardcoded index triplet<span class="chip ok">Closed</span></h4>
+          <p>The home page picks items 1, 2 and 4 by position — which breaks the moment the list changes. It becomes an explicit picker capped at three, falling back to the first three by order.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">05</div>
+        <div>
+          <h4>Three image slots, but folders hold four to twelve<span class="chip ok">Closed</span></h4>
+          <p>The project page’s exact layout is kept — one large plate above two secondaries — and the remaining gallery images extend below it in the same language: plate grounds, square corners, mono captions below the frame and never over it. Faithful, rather than padded out.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">06</div>
+        <div>
+          <h4>Sector filters were scraped from free text<span class="chip ok">Closed</span></h4>
+          <p>A typo in one project would silently produce a sixth filter chip. Replaced with a reference to a controlled list.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">07</div>
+        <div>
+          <h4>Three accessibility slips in the design<span class="chip ok">Closed</span></h4>
+          <p>The project row is a clickable <code>&lt;div&gt;</code>, unreachable by keyboard — it becomes a link. The filter chip is a span with a button role — it becomes a real button. The previous/next links declare <code>border-right</code> twice in one style attribute. All corrected without moving a pixel.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">08</div>
+        <div>
+          <h4>The base stylesheet golds every link on the page<span class="chip ok">Closed</span></h4>
+          <p>Correct for prose, wrong for nav, footer, cards and buttons — which is why the design overrides it inline nine separate times. Scoped to prose instead, so the overrides disappear.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">09</div>
+        <div>
+          <h4>Two names, two contexts<span class="chip ok">Closed</span></h4>
+          <p>“Bejewelled” in navigation, marketing and titles. “Bejewelled Enterprise” in the copyright line, the registration strip and the project record line. Both live in settings so an edit can’t collapse the distinction.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">10</div>
+        <div>
+          <h4>Header height contradicts itself<span class="chip ok">Closed</span></h4>
+          <p>The design system says 72 px condensing to 56; the design file says 76 px. The design file wins — it’s the actual artefact — and the condensed state is dropped, since nothing in the design triggers it.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">11</div>
+        <div>
+          <h4>Hash routes become real URLs<span class="chip ok">Closed</span></h4>
+          <p><code>#/project/01</code> becomes <code>/designs/agogo-makro</code>. Necessary for indexing, sharing and analytics.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">12</div>
+        <div>
+          <h4>Fonts load from a third-party CDN<span class="chip ok">Closed</span></h4>
+          <p>Self-hosted instead. Same three faces, same weights, no render-blocking request.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">13</div>
+        <div>
+          <h4>The logo is a raster PNG<span class="chip ok">Closed</span></h4>
+          <p>Fine at the sizes used, including on retina. Worth commissioning a vector master eventually for print and large-format — the design system flags this too — but it doesn’t block anything here.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">14</div>
+        <div>
+          <h4>No Sanity project exists yet<span class="chip warn">Decision</span></h4>
+          <p>I can create one directly. I need to know which organisation it should sit under, or an existing project ID to reuse.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">15</div>
+        <div>
+          <h4>Five photographed folders, seven profile projects, one overlap<span class="chip warn">Decision</span></h4>
+          <p>Only the KATH Credit Union appears in both. Agogo Makro, Dekyi Appartments Gazebo, Gaze and Konkromase are new; six projects from the company profile have no photography at all.</p>
+          <p><strong>My recommendation:</strong> publish the five photographed projects, and load the six profile projects into Sanity as unpublished drafts. The portfolio reads complete and honest today, and the moment photographs arrive it’s a publish rather than a data-entry session.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">16</div>
+        <div>
+          <h4>Four photographs the CMS can’t source<span class="chip warn">Decision</span></h4>
+          <p>The home hero, the portrait of Rosemary Dwamena, a site-works photograph for the construction page, and an office photo or map for contact. None are in the project folders.</p>
+          <p>Each is a Sanity image field, so all four are swappable without code. Until then the three scene shots fall back to the strongest project exteriors. The portrait has no honest substitute — that section renders without its image column rather than filling it with something generic.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">17</div>
+        <div>
+          <h4>Web3Forms access key<span class="chip warn">Decision</span></h4>
+          <p>You create it against the inbox that should receive enquiries — a thirty-second signup. Until it arrives the form is fully built and the proxy returns a stubbed success in development.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">18</div>
+        <div>
+          <h4>Two folder names read as typos<span class="chip warn">Decision</span></h4>
+          <p>“Dekyi <em>Appartments</em> Gazebo” and “Agogo <em>Makro</em>”. Seeded exactly as named, per your instruction. Correcting the title in Sanity later takes seconds, and the slug is pinned on creation, so fixing a display name won’t break a live URL.</p>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-n">19</div>
+        <div>
+          <h4>Visual editing is optional<span class="chip warn">Decision</span></h4>
+          <p>The Presentation tool adds click-to-edit against a live preview. Genuinely useful, and also the piece most likely to need fiddling — so it’s scheduled last, where it can’t hold up launch.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 PHASES — the blue field ============ -->
+<div class="deep">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow on-deep">The Sequence</div>
+        <h2>Eight phases, each one verifiable</h2>
+      </div>
+      <div class="sheet">Sheet 06 / 08</div>
+    </div>
+
+    <div class="phases">
+      <div class="phase">
+        <div class="phase-n">00</div>
+        <h3>Scaffold</h3>
+        <p>Next.js app and standalone Studio side by side; the imported design committed as reference.</p>
+        <div class="check">Both dev servers boot</div>
+      </div>
+      <div class="phase">
+        <div class="phase-n">01</div>
+        <h3>Design system</h3>
+        <p>Tokens, the Tailwind bridge, self-hosted fonts, and all fourteen primitives ported from the bundle.</p>
+        <div class="check">Values diffed against the bundle</div>
+      </div>
+      <div class="phase">
+        <div class="phase-n">02</div>
+        <h3>Chrome</h3>
+        <p>Sheet rail, sticky header, mobile menu, footer, and the shared call-to-action band.</p>
+        <div class="check">Matches at 1440 px, holds at 390 px</div>
+      </div>
+      <div class="phase">
+        <div class="phase-n">03</div>
+        <h3>Schema</h3>
+        <p>All schemas, Studio structure, and every string of design copy seeded into the singletons.</p>
+        <div class="check">Every visible string is editable</div>
+      </div>
+      <div class="phase">
+        <div class="phase-n">04</div>
+        <h3>Home, Services, Construction</h3>
+        <p>The three content-driven pages, built section by section against the design.</p>
+        <div class="check">Side-by-side with the design preview</div>
+      </div>
+      <div class="phase">
+        <div class="phase-n">05</div>
+        <h3>Designs &amp; projects</h3>
+        <p>Photography seeded; the index with sector filters and the plates/index toggle; project pages with previous/next.</p>
+        <div class="check">Five projects live with real photography</div>
+      </div>
+      <div class="phase">
+        <div class="phase-n">06</div>
+        <h3>Contact</h3>
+        <p>The form, the Web3Forms proxy, validation, honeypot and rate limiting.</p>
+        <div class="check">A real test enquiry lands in the inbox</div>
+      </div>
+      <div class="phase">
+        <div class="phase-n">07</div>
+        <h3>Launch</h3>
+        <p>Metadata, sitemap, structured data, accessibility audit, visual editing, deploy.</p>
+        <div class="check">Keyboard-only pass on all six screens</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 07 ASKS ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Over To You</div>
+        <h2>Four things I need</h2>
+      </div>
+      <div class="sheet">Sheet 07 / 08</div>
+    </div>
+
+    <div class="asks">
+      <div class="ask">
+        <div class="label">One</div>
+        <h4>Sanity organisation</h4>
+        <p>Which organisation the new project should sit under — or an existing project ID to reuse.</p>
+      </div>
+      <div class="ask">
+        <div class="label">Two</div>
+        <h4>Portfolio scope</h4>
+        <p>Five photographed projects published with the six profile projects held as drafts, or something else.</p>
+      </div>
+      <div class="ask">
+        <div class="label">Three</div>
+        <h4>Web3Forms key</h4>
+        <p>The access key, and the inbox enquiries should land in.</p>
+      </div>
+      <div class="ask">
+        <div class="label">Four</div>
+        <h4>Four photographs</h4>
+        <p>Home hero, the Principal Architect’s portrait, site works, and the Apire office. Not urgent.</p>
+      </div>
+    </div>
+
+    <div class="body-stack">
+      <p><strong>Nothing on that list blocks phases 00 through 05.</strong> Give me the Sanity organisation and the portfolio decision and I can build straight through to a fully populated designs page.</p>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <span>Bejewelled Enterprise · Plot 41A, Block J, Apire, Kumasi</span>
+    <span>Build plan · Sheet 08 / 08</span>
+  </footer>
+</div>
+
+</div>

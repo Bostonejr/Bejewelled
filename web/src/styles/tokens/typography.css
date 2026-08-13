@@ -1,0 +1,32 @@
+:root{
+/* families — the face stacks are supplied by next/font in layout.tsx, which
+   sets --font-marcellus / --font-archivo / --font-plex-mono. */
+--font-display:var(--font-marcellus),Georgia,"Times New Roman",serif;
+--font-text:var(--font-archivo),"Helvetica Neue",Arial,sans-serif;
+--font-mono:var(--font-plex-mono),ui-monospace,"SF Mono",Menlo,monospace;
+
+/* type scale — 1.25 major third off a 16px base */
+--text-2xs:11px;--text-xs:12px;--text-sm:14px;--text-base:16px;--text-md:18px;
+--text-lg:21px;--text-xl:26px;--text-2xl:33px;--text-3xl:42px;--text-4xl:54px;--text-5xl:68px;--text-6xl:88px;
+
+/* line heights */
+--leading-tight:1.08;--leading-snug:1.22;--leading-normal:1.5;--leading-relaxed:1.65;
+
+/* weights (Archivo variable) */
+--weight-light:300;--weight-regular:400;--weight-medium:500;--weight-semibold:600;--weight-bold:700;
+
+/* tracking — the brand's signature is wide-tracked uppercase eyebrows */
+--tracking-tight:-0.02em;--tracking-normal:0;--tracking-wide:0.06em;
+--tracking-eyebrow:0.24em;--tracking-lockup:0.34em;
+
+/* composed roles */
+--type-display:var(--weight-regular) var(--text-5xl)/var(--leading-tight) var(--font-display);
+--type-h1:var(--weight-regular) var(--text-4xl)/var(--leading-tight) var(--font-display);
+--type-h2:var(--weight-regular) var(--text-3xl)/var(--leading-snug) var(--font-display);
+--type-h3:var(--weight-regular) var(--text-xl)/var(--leading-snug) var(--font-display);
+--type-body-lg:var(--weight-regular) var(--text-md)/var(--leading-relaxed) var(--font-text);
+--type-body:var(--weight-regular) var(--text-base)/var(--leading-relaxed) var(--font-text);
+--type-body-sm:var(--weight-regular) var(--text-sm)/var(--leading-normal) var(--font-text);
+--type-eyebrow:var(--weight-medium) var(--text-xs)/1.4 var(--font-text);
+--type-label:var(--weight-medium) var(--text-2xs)/1.4 var(--font-mono);
+}

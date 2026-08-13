@@ -1,0 +1,134 @@
+/**
+ * Chrome content, transcribed verbatim from `Bejewelled Website.dc.html`.
+ *
+ * This is a *fallback*, not the source of truth. The shape below mirrors the
+ * `siteSettings` singleton in docs/PLAN.md §5.2 field for field, so when the
+ * Sanity schema lands the chrome components keep their prop types and the
+ * layout swaps `siteDefaults` for a `sanityFetch`. Until then the site renders
+ * the design's own copy rather than empty slots.
+ *
+ * Brand law that bites here (design system readme):
+ *   · "Bejewelled" in nav, marketing and titles; "Bejewelled Enterprise" in the
+ *     copyright line, the registration strip and the project record line.
+ *   · Ghanaian/British spelling — recognised, programme, centred.
+ *   · Exclamation marks appear in the tagline and nowhere else.
+ */
+
+export type NavItem = {label: string; href: string}
+export type FooterLink = {label: string; href?: string}
+export type FooterColumn = {title: string; items: FooterLink[]}
+
+export type SiteSettings = {
+  brandName: string
+  legalName: string
+  tagline: string
+  /** The vertical text running up the fixed sheet rail. */
+  railLabel: string
+  nav: NavItem[]
+  /** Shown in the header; the first number is the one the design prints. */
+  phones: string[]
+  addressLines: string[]
+  digitalAddress: string
+  registrationLine: string
+  /** The ink band of registrations under the hero on Home. */
+  credentialStrip: string[]
+  footerStatement: string
+  footerColumns: FooterColumn[]
+  officeColumnTitle: string
+  ctaBand: {
+    heading: string
+    body: string
+    button: {label: string; href: string}
+  }
+}
+
+export const siteDefaults: SiteSettings = {
+  brandName: 'Bejewelled',
+  legalName: 'Bejewelled Enterprise',
+  tagline: 'Ideas well expressed!',
+  railLabel: 'Bejewelled Enterprise · Kumasi, Ghana',
+
+  nav: [
+    {label: 'Home', href: '/'},
+    {label: 'Services', href: '/services'},
+    {label: 'Construction', href: '/construction'},
+    {label: 'Designs', href: '/designs'},
+    {label: 'Contact', href: '/contact'},
+  ],
+
+  phones: ['0244 037 166', '0274 271 421'],
+  addressLines: ['Plot 41A, Block J, Apire,', 'Kumasi, Ghana'],
+  digitalAddress: 'AK-361-7399',
+  registrationLine:
+    'Registered 2013 · BN433602013 · Ministry of Works and Housing K3, D3',
+
+  // Transcribed verbatim: the strip uses "Works & Housing" while the footer
+  // registration line above uses "Works and Housing". That is the design file,
+  // not a slip in the transcription.
+  credentialStrip: [
+    'Registered 2013 · BN433602013',
+    'Ministry of Works & Housing K3, D3',
+    'Public Procurement Authority',
+    'Architects Registration Council',
+  ],
+
+  footerStatement:
+    'Designing livable spaces. Solving everyday environmental problems. Delivering a wholistic service to every client.',
+
+  footerColumns: [
+    {
+      title: 'Practice',
+      items: [
+        {label: 'Services', href: '/services'},
+        {label: 'Construction', href: '/construction'},
+        {label: 'Designs', href: '/designs'},
+        {label: 'Contact', href: '/contact'},
+      ],
+    },
+    {
+      // No hrefs: the design renders these as <span>, not links.
+      title: 'Disciplines',
+      items: [
+        {label: 'Architectural Services'},
+        {label: 'Engineering Services'},
+        {label: 'Project Management'},
+        {label: 'Construction'},
+      ],
+    },
+  ],
+
+  officeColumnTitle: 'Registered office',
+
+  ctaBand: {
+    heading: "Let's build something lasting, together.",
+    body: 'Plot 41A, Block J, Apire, Kumasi, Ghana · 0244 037 166 • 0274 271 421',
+    button: {label: 'Start a conversation', href: '/contact'},
+  },
+}
+
+/**
+ * The sheet number printed at the foot of the rail.
+ *
+ * The design's router maps home/services/construction/designs/project/contact
+ * to 01/02/03/04/04/05 — a project detail page is still sheet 04, because it is
+ * part of the designs set. Anything unrouted (404) falls back to 01, matching
+ * the design's `SHEETS[route] || '01'`.
+ */
+const SHEETS: ReadonlyArray<readonly [RegExp, string]> = [
+  [/^\/$/, '01'],
+  [/^\/services(\/|$)/, '02'],
+  [/^\/construction(\/|$)/, '03'],
+  [/^\/designs(\/|$)/, '04'],
+  [/^\/contact(\/|$)/, '05'],
+]
+
+export const SHEET_COUNT = '05'
+
+export function sheetNumber(pathname: string): string {
+  return SHEETS.find(([pattern]) => pattern.test(pathname))?.[1] ?? '01'
+}
+
+/** True when `href` is the section the current pathname sits inside. */
+export function isActiveRoute(pathname: string, href: string): boolean {
+  return href === '/' ? pathname === '/' : pathname.startsWith(href)
+}

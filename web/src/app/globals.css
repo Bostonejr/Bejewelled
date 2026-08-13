@@ -1,0 +1,336 @@
+@import "tailwindcss";
+
+/* Explicit source globs. Auto-detection walks up from the CSS file and misses
+   src/ in this layout, which silently generates an almost-empty stylesheet. */
+@source "../**/*.{ts,tsx}";
+
+/* ============================================================================
+   The Bejewelled design system, imported verbatim.
+
+   These six files are byte-identical copies of the token sheets in the Claude
+   Design project (bejewelled-design-system-90056384). Re-running the design
+   import overwrites them and the whole site follows. Do not hand-edit them —
+   change the design system instead.
+
+   The seventh sheet, fonts.css, is deliberately absent: it pulled Marcellus,
+   Archivo and IBM Plex Mono from Google at runtime. The same three faces are
+   self-hosted through next/font in layout.tsx, which supplies the
+   --font-marcellus / --font-archivo / --font-plex-mono variables that
+   typography.css consumes.
+   ========================================================================= */
+@import "../styles/tokens/colors.css";
+@import "../styles/tokens/typography.css";
+@import "../styles/tokens/spacing.css";
+@import "../styles/tokens/elevation.css";
+@import "../styles/tokens/motion.css";
+
+/* base.css is the element reset — body, h1-h4, p, focus ring, selection. It is
+   imported INTO @layer base, unlike the five token sheets above, and the
+   distinction is load-bearing in both directions:
+
+   · It must be layered. Unlayered rules outrank every cascade layer, so an
+     unlayered `p{margin:0}` silently kills `mt-6` on any paragraph and
+     `h1,h2,h3,h4{margin:0}` kills it on any heading. Tailwind emits utilities
+     inside @layer utilities, which loses to unlayered CSS every time. In
+     @layer base the reset sits before components and utilities, so the type
+     role classes and the margin utilities both win, which is what a reset is
+     for.
+
+   · The five token sheets above must NOT be layered. They define :root custom
+     properties whose names collide exactly with Tailwind's theme namespace
+     (--radius-md, --text-2xs, --shadow-sm, --ease-standard, --font-display).
+     Tailwind emits its own values for those inside @layer theme; the design's
+     unlayered :root is what overrides them. Move those imports into a layer
+     and every colliding token silently resolves to Tailwind's default instead
+     of the design's. base.css declares no custom properties, so it is exempt.
+
+   See docs/PLAN.md and the session notes, gotcha 1. */
+@import "../styles/tokens/base.css" layer(base);
+
+/* ============================================================================
+   The bridge into Tailwind.
+
+   `@theme inline` is load-bearing. With a plain `@theme`, Tailwind emits the
+   literal string "var(--gold-500)" as the variable's value, and any opacity
+   modifier (bg-ink-900/60) fails to resolve. `inline` substitutes the
+   reference into the utility itself, so color-mix() gets a real colour.
+
+   Spacing is deliberately NOT remapped: the design runs on a 4px grid and
+   Tailwind's default numeric scale is already 4px-based, so the design's
+   --space-* values are reachable as-is —
+     space-1  4px  → 1      space-6  32px → 8       space-10  96px → 24
+     space-2  8px  → 2      space-7  40px → 10      space-11 128px → 32
+     space-3  12px → 3      space-8  56px → 14      space-12 160px → 40
+     space-4  16px → 4      space-9  72px → 18
+     space-5  24px → 6
+   ========================================================================= */
+@theme inline {
+  /* --- gold: the only accent, and the only interactive colour --- */
+  --color-gold-50: var(--gold-50);
+  --color-gold-100: var(--gold-100);
+  --color-gold-200: var(--gold-200);
+  --color-gold-300: var(--gold-300);
+  --color-gold-400: var(--gold-400);
+  --color-gold-500: var(--gold-500);
+  --color-gold-600: var(--gold-600);
+  --color-gold-700: var(--gold-700);
+  --color-gold-800: var(--gold-800);
+  --color-gold-900: var(--gold-900);
+
+  /* --- ink --- */
+  --color-ink-50: var(--ink-50);
+  --color-ink-100: var(--ink-100);
+  --color-ink-200: var(--ink-200);
+  --color-ink-300: var(--ink-300);
+  --color-ink-400: var(--ink-400);
+  --color-ink-500: var(--ink-500);
+  --color-ink-600: var(--ink-600);
+  --color-ink-700: var(--ink-700);
+  --color-ink-800: var(--ink-800);
+  --color-ink-900: var(--ink-900);
+
+  /* --- paper: the ground --- */
+  --color-paper-000: var(--paper-000);
+  --color-paper-050: var(--paper-050);
+  --color-paper-100: var(--paper-100);
+  --color-paper-200: var(--paper-200);
+  --color-paper-300: var(--paper-300);
+
+  /* --- blueprint blue: a field and annotation colour, never interactive --- */
+  --color-blue-50: var(--blue-50);
+  --color-blue-100: var(--blue-100);
+  --color-blue-200: var(--blue-200);
+  --color-blue-300: var(--blue-300);
+  --color-blue-400: var(--blue-400);
+  --color-blue-500: var(--blue-500);
+  --color-blue-600: var(--blue-600);
+  --color-blue-700: var(--blue-700);
+  --color-blue-800: var(--blue-800);
+  --color-blue-900: var(--blue-900);
+
+  /* --- clay and slate: supporting neutrals --- */
+  --color-clay-100: var(--clay-100);
+  --color-clay-300: var(--clay-300);
+  --color-clay-500: var(--clay-500);
+  --color-clay-700: var(--clay-700);
+  --color-slate-100: var(--slate-100);
+  --color-slate-300: var(--slate-300);
+  --color-slate-500: var(--slate-500);
+  --color-slate-700: var(--slate-700);
+
+  /* --- semantic: forms only --- */
+  --color-status-success: var(--status-success);
+  --color-status-warning: var(--status-warning);
+  --color-status-error: var(--status-error);
+  --color-status-info: var(--status-info);
+
+  /* --- surface aliases --- */
+  --color-surface-page: var(--surface-page);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-surface-card: var(--surface-card);
+  --color-surface-inverse: var(--surface-inverse);
+  --color-surface-deep: var(--surface-deep);
+  --color-surface-deep-soft: var(--surface-deep-soft);
+  --color-surface-plate: var(--surface-plate);
+  --color-surface-accent: var(--surface-accent);
+  --color-surface-accent-soft: var(--surface-accent-soft);
+
+  /* --- text aliases --- */
+  --color-text-heading: var(--text-heading);
+  --color-text-body: var(--text-body);
+  --color-text-muted: var(--text-muted);
+  --color-text-accent: var(--text-accent);
+  --color-text-accent-cool: var(--text-accent-cool);
+  --color-text-on-accent: var(--text-on-accent);
+  --color-text-on-inverse: var(--text-on-inverse);
+  --color-text-on-inverse-muted: var(--text-on-inverse-muted);
+  --color-text-on-deep: var(--text-on-deep);
+  --color-text-on-deep-muted: var(--text-on-deep-muted);
+
+  /* --- line aliases: the dominant structural device --- */
+  --color-line-hairline: var(--line-hairline);
+  --color-line-rule: var(--line-rule);
+  --color-line-strong: var(--line-strong);
+  --color-line-accent: var(--line-accent);
+  --color-line-inverse: var(--line-inverse);
+  --color-line-deep: var(--line-deep);
+  --color-line-accent-cool: var(--line-accent-cool);
+
+  /* --- interactive aliases --- */
+  --color-action-primary: var(--action-primary);
+  --color-action-primary-hover: var(--action-primary-hover);
+  --color-action-accent: var(--action-accent);
+  --color-action-accent-hover: var(--action-accent-hover);
+  --color-focus-ring: var(--focus-ring);
+
+  /* --- type families --- */
+  --font-display: var(--font-marcellus), Georgia, "Times New Roman", serif;
+  --font-text: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* --- type scale --- */
+  --text-2xs: var(--text-2xs);
+  --text-xs: var(--text-xs);
+  --text-sm: var(--text-sm);
+  --text-base: var(--text-base);
+  --text-md: var(--text-md);
+  --text-lg: var(--text-lg);
+  --text-xl: var(--text-xl);
+  --text-2xl: var(--text-2xl);
+  --text-3xl: var(--text-3xl);
+  --text-4xl: var(--text-4xl);
+  --text-5xl: var(--text-5xl);
+  --text-6xl: var(--text-6xl);
+
+  /* --- tracking --- */
+  --tracking-tight: var(--tracking-tight);
+  --tracking-normal: var(--tracking-normal);
+  --tracking-wide: var(--tracking-wide);
+  --tracking-eyebrow: var(--tracking-eyebrow);
+  --tracking-lockup: var(--tracking-lockup);
+
+  /* --- radii: architectural, near-square. Replaces Tailwind's defaults. --- */
+  --radius-none: var(--radius-none);
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+
+  /* --- elevation: soft and warm-tinted, never coloured or glowing --- */
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  /* The hairline under the sticky header — a shadow, not a border, so it does
+     not add to the header's 76px height. */
+  --shadow-inset-rule: var(--shadow-inset-rule);
+
+  /* --- easing --- */
+  --ease-standard: var(--ease-standard);
+  --ease-entrance: var(--ease-entrance);
+  --ease-exit: var(--ease-exit);
+
+  /* --- layout --- */
+  --container-layout: var(--layout-max);
+}
+
+/* ============================================================================
+   Composite type roles.
+
+   --type-h1 and friends are CSS `font:` shorthands, which have no Tailwind
+   equivalent — a shorthand sets family, size, weight and line-height at once.
+   These classes are the only sanctioned way to apply them.
+   ========================================================================= */
+@layer components {
+  .type-display {
+    font: var(--type-display);
+    letter-spacing: var(--tracking-tight);
+  }
+  .type-h1 {
+    font: var(--type-h1);
+  }
+  .type-h2 {
+    font: var(--type-h2);
+  }
+  .type-h3 {
+    font: var(--type-h3);
+  }
+  .type-body-lg {
+    font: var(--type-body-lg);
+  }
+  .type-body {
+    font: var(--type-body);
+  }
+  .type-body-sm {
+    font: var(--type-body-sm);
+  }
+
+  /* The brand's signature: wide-tracked uppercase section labels. */
+  .type-eyebrow {
+    font: var(--type-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+  }
+
+  /* Small uppercase mono field labels — SCOPE OF WORKS, LOCATION, STATUS. */
+  .type-label {
+    font: var(--type-label);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* Body copy caps at 68ch, per the design system. */
+  .measure {
+    max-width: var(--layout-text-max);
+  }
+
+  /* Control state transition, straight off the token. Referencing the token
+     rather than a literal duration matters: motion.css zeroes every duration
+     under prefers-reduced-motion, so these stop animating for free. */
+  .transition-control {
+    transition: var(--transition-control);
+  }
+  .transition-card {
+    transition:
+      border-color var(--duration-fast) var(--ease-standard),
+      box-shadow var(--duration-fast) var(--ease-standard);
+  }
+
+  /* The 1240px column with its 56px gutters, stepping to 24px on small
+     screens. Gap #01: the design has no mobile state, so the step is derived
+     from the design system's own --layout-gutter / --layout-gutter-lg pair
+     rather than invented. */
+  .wrap {
+    max-width: var(--layout-max);
+    margin-inline: auto;
+    padding-inline: var(--layout-gutter);
+  }
+  @media (min-width: 768px) {
+    .wrap {
+      padding-inline: var(--layout-gutter-lg);
+    }
+  }
+}
+
+/* ============================================================================
+   Scroll reveal: a fade plus a 12–16px rise over --duration-reveal, and
+   nothing else. No bounce, no spring, no scale, no parallax. Motion is
+   already zeroed under prefers-reduced-motion by motion.css, and the
+   translate is disabled here too so nothing moves at all.
+   ========================================================================= */
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity var(--duration-reveal) var(--ease-standard),
+      transform var(--duration-reveal) var(--ease-standard);
+  }
+  .reveal[data-revealed="true"] {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}

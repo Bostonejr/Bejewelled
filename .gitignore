@@ -1,0 +1,31 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.*
+
+# builds
+.next/
+out/
+build/
+dist/
+studio/.sanity/
+studio/dist/
+studio/schema.json
+
+# environment — contains Sanity tokens and the Web3Forms key
+.env
+.env.local
+.env*.local
+
+# source photography, 116 MB — uploaded to Sanity by scripts/seed-projects.mjs
+Project Images/
+
+# tooling
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.vercel
+*.tsbuildinfo
+next-env.d.ts

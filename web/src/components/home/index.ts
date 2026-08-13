@@ -1,0 +1,6 @@
+export {AboutBlock} from './AboutBlock'
+export {CredentialStrip} from './CredentialStrip'
+export {DisciplinesBand} from './DisciplinesBand'
+export {Hero} from './Hero'
+export {Leadership} from './Leadership'
+export {SelectedWorks} from './SelectedWorks'

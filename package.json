@@ -1,0 +1,18 @@
+{
+  "name": "bejewelled",
+  "private": true,
+  "description": "Bejewelled Enterprise — marketing site (web) and content Studio (studio).",
+  "scripts": {
+    "dev": "npm run dev --prefix web",
+    "dev:studio": "npm run dev --prefix studio",
+    "build": "npm run build --prefix web",
+    "lint": "npm run lint --prefix web",
+    "typegen": "npm run typegen --prefix studio",
+    "seed:content": "node --env-file=.env scripts/seed-content.mjs",
+    "seed:projects": "node --env-file=.env scripts/seed-projects.mjs"
+  },
+  "devDependencies": {
+    "@sanity/client": "^7.26.2",
+    "lexorank": "^1.0.5"
+  }
+}

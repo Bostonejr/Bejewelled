@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bejewelled — Ideas well expressed!</title>
+<link rel="stylesheet" href="_ds/bejewelled-design-system-90056384-ff2f-446d-82fa-28f3600f5f0a/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/bejewelled-design-system-90056384-ff2f-446d-82fa-28f3600f5f0a/tokens/colors.css">
+<link rel="stylesheet" href="_ds/bejewelled-design-system-90056384-ff2f-446d-82fa-28f3600f5f0a/tokens/typography.css">
+<link rel="stylesheet" href="_ds/bejewelled-design-system-90056384-ff2f-446d-82fa-28f3600f5f0a/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/bejewelled-design-system-90056384-ff2f-446d-82fa-28f3600f5f0a/tokens/elevation.css">
+<link rel="stylesheet" href="_ds/bejewelled-design-system-90056384-ff2f-446d-82fa-28f3600f5f0a/tokens/motion.css">
+<link rel="stylesheet" href="_ds/bejewelled-design-system-90056384-ff2f-446d-82fa-28f3600f5f0a/tokens/base.css">
+<link rel="stylesheet" href="_ds/bejewelled-design-system-90056384-ff2f-446d-82fa-28f3600f5f0a/styles.css">
+<script src="_ds/bejewelled-design-system-90056384-ff2f-446d-82fa-28f3600f5f0a/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper-100)}
+a{color:var(--text-accent);text-decoration:none;border-bottom:1px solid var(--gold-200)}
+a:hover{color:var(--gold-700);border-bottom-color:var(--gold-500)}
+image-slot{display:block}
+</style>
+</helmet>
+
+<div style="position:relative;min-height:100vh;background:var(--paper-100)">
+
+<aside style="position:fixed;left:0;top:0;bottom:0;width:44px;z-index:60;background:var(--paper-050);border-right:1px solid var(--line-hairline);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:18px 0">
+<div style="width:7px;height:7px;background:var(--gold-500)"></div>
+<div style="writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--font-mono);font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--ink-300);white-space:nowrap">{{ railLabel }}</div>
+<div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.14em;color:var(--text-accent)">{{ sheetNo }}</div>
+</aside>
+
+<div style="margin-left:44px">
+
+<header style="position:sticky;top:0;z-index:40;background:var(--paper-100);box-shadow:var(--shadow-inset-rule)">
+<div style="max-width:1240px;margin:0 auto;padding:0 56px;min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px">
+<a href="#/home" style="border:0;display:flex;align-items:center">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Logo" variant="lockup" height="48px" asset-path="assets/" hint-size="120px,48px"></x-import>
+</a>
+<nav style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;min-width:0">
+<sc-for list="{{ nav }}" as="item" hint-placeholder-count="5">
+<sc-if value="{{ item.active }}" hint-placeholder-val="{{ true }}">
+<a href="{{ item.href }}" style="font:var(--type-eyebrow);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--text-heading);border:0;border-bottom:2px solid var(--line-accent);padding-bottom:5px">{{ item.label }}</a>
+</sc-if>
+<sc-if value="{{ item.idle }}" hint-placeholder-val="{{ true }}">
+<a href="{{ item.href }}" style="font:var(--type-eyebrow);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--text-muted);border:0;border-bottom:2px solid transparent;padding-bottom:5px">{{ item.label }}</a>
+</sc-if>
+</sc-for>
+</nav>
+<div style="display:flex;align-items:center;gap:20px;margin-left:auto">
+<span style="font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.08em;color:var(--text-muted);white-space:nowrap">0244 037 166</span>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Button" size="sm" variant="primary" href="#/contact" hint-size="140px,36px">Get in touch</x-import>
+</div>
+</div>
+</header>
+
+<main>
+
+<!-- ============================= HOME ============================= -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));min-height:640px;border-bottom:1px solid var(--line-hairline)">
+<div style="padding:88px 56px 40px 56px;display:flex;flex-direction:column;justify-content:center;background-image:linear-gradient(to right,rgba(26,26,26,.045) 1px,transparent 1px),linear-gradient(to bottom,rgba(26,26,26,.045) 1px,transparent 1px);background-size:56px 56px">
+<div style="max-width:640px">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Eyebrow" tone="muted" hint-size="100%,18px">Architecture · Engineering · Project Management · Construction</x-import>
+<h1 style="font-family:var(--font-display);font-weight:var(--weight-regular);font-size:clamp(52px,6.4vw,88px);line-height:1.02;color:var(--ink-900);margin:26px 0 0;letter-spacing:var(--tracking-tight)">Ideas well expressed!</h1>
+<p style="font:var(--type-body-lg);color:var(--text-body);margin-top:28px;max-width:54ch">Bejewelled is a Ghanaian architectural, engineering and construction practice based in Kumasi. We believe architecture is more than the design of buildings — it is a tool for creating livable spaces and solving everyday environmental problems.</p>
+<div style="display:flex;gap:12px;margin-top:36px">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Button" variant="primary" size="lg" href="#/designs" hint-size="180px,52px">View the designs</x-import>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Button" variant="secondary" size="lg" href="#/contact" hint-size="160px,52px">Get in touch</x-import>
+</div>
+</div>
+</div>
+<div style="position:relative;background:var(--surface-plate);min-height:640px">
+<image-slot id="bj-hero" shape="rect" placeholder="Hero photograph — completed institutional building, warm natural daylight, three-quarter view"></image-slot>
+</div>
+</section>
+
+<section style="background:var(--surface-inverse);color:var(--text-on-inverse)">
+<div style="max-width:1240px;margin:0 auto;padding:0 56px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+<div style="padding:22px 24px 22px 0;font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-200)">Registered 2013 · BN433602013</div>
+<div style="padding:22px 24px;border-left:1px solid var(--line-inverse);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-200)">Ministry of Works &amp; Housing K3, D3</div>
+<div style="padding:22px 24px;border-left:1px solid var(--line-inverse);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-200)">Public Procurement Authority</div>
+<div style="padding:22px 24px;border-left:1px solid var(--line-inverse);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-200)">Architects Registration Council</div>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:96px 56px 0">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:64px;align-items:start">
+<div>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Eyebrow" hint-size="100%,18px">About Us</x-import>
+<p style="font-family:var(--font-display);font-size:var(--text-2xl);line-height:1.28;color:var(--text-heading);margin-top:24px">Every commission is approached with one philosophy at its core: spaces that respond to how people actually live and work, environments that are comfortable, efficient and enduring.</p>
+<div style="height:2px;width:56px;background:var(--line-strong);margin:36px 0"></div>
+<p style="font:var(--type-body);color:var(--text-body);max-width:var(--layout-text-max)">This is why we structure our practice as a wholistic service. From the first design conversation through pre-contract planning, engineering coordination, site construction and post-contract close-out, our clients work with one accountable team rather than a series of disconnected consultants.</p>
+<div style="margin-top:28px"><x-import component-from-global-scope="BejewelledDesignSystem_900563.Button" variant="ghost" href="#/services" hint-size="200px,44px">All services in detail</x-import></div>
+</div>
+<div style="border-top:1px solid var(--line-hairline);padding-top:20px">
+<div style="font:var(--type-label);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)">Practice record</div>
+<div style="margin-top:24px">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.StatBlock" stats="{{ stats }}" columns="{{ two }}" hint-size="100%,200px"></x-import>
+</div>
+</div>
+</div>
+</section>
+
+<section style="background:var(--surface-deep);margin-top:96px;padding:96px 0">
+<div style="max-width:1240px;margin:0 auto;padding:0 56px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:end">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.SectionHeading" eyebrow="What We Do" title="Four core disciplines" tone="inverse" hint-size="100%,160px"></x-import>
+<p style="font:var(--type-body-lg);color:var(--text-on-deep-muted);max-width:56ch;padding-bottom:6px">One accountable team covers the whole of a commission — design, engineering, management and construction — so nothing is lost between consultants.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;margin-top:64px">
+<sc-for list="{{ disciplines }}" as="d" hint-placeholder-count="4">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.NumberedItem" tone="inverse" number="{{ d.n }}" title="{{ d.t }}" hint-size="100%,160px">{{ d.d }}</x-import>
+</sc-for>
+</div>
+<div style="display:flex;gap:12px;margin-top:64px">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Button" variant="accent" href="#/services" hint-size="160px,44px">Our services</x-import>
+<a href="#/construction" style="display:inline-flex;align-items:center;padding:12px 4px;font:var(--type-eyebrow);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--paper-100);border:0;border-bottom:1px solid rgba(246,244,239,.45)">Construction approach →</a>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:96px 56px 0">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid var(--line-strong);padding-bottom:24px">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.SectionHeading" eyebrow="Selected Works" title="Recent commissions" rule="{{ false }}" hint-size="100%,90px"></x-import>
+<a href="#/designs" style="font:var(--type-eyebrow);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--text-accent);border:0;border-bottom:1px solid var(--gold-200);padding-bottom:3px">All 30+ projects</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:40px">
+<sc-for list="{{ featured }}" as="p" hint-placeholder-count="3">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Card" as="a" href="{{ p.href }}" interactive="{{ true }}" padding="0" hint-size="100%,360px">
+<div style="position:relative;height:220px;background:var(--surface-plate);overflow:hidden;border-top-left-radius:var(--radius-md);border-top-right-radius:var(--radius-md)">
+<image-slot id="{{ p.slotA }}" shape="rect" placeholder="Project photograph"></image-slot>
+</div>
+<div style="padding:24px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+<span style="font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.12em;color:var(--text-accent)">{{ p.n }}</span>
+<span style="font-family:var(--font-mono);font-size:var(--text-2xs);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)">{{ p.sector }}</span>
+</div>
+<h3 style="font:var(--type-h3);margin-top:14px;color:var(--text-heading)">{{ p.client }}</h3>
+<p style="font:var(--type-body-sm);color:var(--text-muted);margin-top:8px">{{ p.scope }}</p>
+<div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line-hairline);font-family:var(--font-mono);font-size:var(--text-2xs);letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">{{ p.location }}</div>
+</div>
+</x-import>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:96px 56px 0">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:start">
+<div style="position:relative;height:520px;background:var(--surface-plate)">
+<image-slot id="bj-principal" shape="rect" placeholder="Portrait — Principal Architect, on site or in the studio"></image-slot>
+</div>
+<div>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Eyebrow" hint-size="100%,18px">Leadership</x-import>
+<h2 style="font:var(--type-h2);margin-top:14px">Rosemary Dwamena</h2>
+<div style="font-family:var(--font-mono);font-size:var(--text-sm);letter-spacing:0.08em;color:var(--text-accent);margin-top:10px">Architect, AGIA · Principal Architect</div>
+<p style="font:var(--type-body);color:var(--text-body);margin-top:28px;max-width:var(--layout-text-max)">Rosemary Dwamena is a registered Architect with over twenty years of experience in architectural design, project management and construction supervision. She leads every commission the practice undertakes, from the first design conversation through to handover.</p>
+<div style="margin-top:40px;border-top:1px solid var(--line-hairline)">
+<sc-for list="{{ creds }}" as="c" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:24px;padding:18px 0;border-bottom:1px solid var(--line-hairline)">
+<div style="font:var(--type-label);letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">{{ c.k }}</div>
+<div style="font:var(--type-body-sm);color:var(--text-body)">{{ c.v }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+</sc-if>
+
+<!-- ============================= SERVICES ============================= -->
+<sc-if value="{{ isServices }}" hint-placeholder-val="{{ true }}">
+<section style="max-width:1240px;margin:0 auto;padding:72px 56px 0">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid var(--line-strong);padding-bottom:28px;gap:40px">
+<div>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Eyebrow" hint-size="100%,18px">Services</x-import>
+<h1 style="font:var(--type-h1);margin-top:16px;max-width:22ch">A wholistic service, discipline by discipline</h1>
+</div>
+<div style="font-family:var(--font-mono);font-size:var(--text-2xs);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap">Sheet 02 / 05</div>
+</div>
+<p style="font:var(--type-body-lg);color:var(--text-body);max-width:var(--layout-text-max);margin-top:32px">Bejewelled delivers architectural and engineering services, project management and construction to institutional, commercial and residential clients across Ghana. Each discipline below can be commissioned on its own, but they are designed to work together — as one team, under one line of accountability.</p>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:72px 56px 0">
+<sc-for list="{{ services }}" as="s" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;padding:56px 0;border-top:3px solid var(--line-accent)">
+<div>
+<div style="font-family:var(--font-mono);font-size:var(--text-lg);color:var(--text-accent)">{{ s.n }}</div>
+<h2 style="font:var(--type-h2);margin-top:18px;max-width:16ch">{{ s.t }}</h2>
+<div style="margin-top:28px;font-family:var(--font-mono);font-size:var(--text-2xs);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)">{{ s.tag }}</div>
+</div>
+<div>
+<p style="font:var(--type-body-lg);color:var(--text-body);max-width:var(--layout-text-max)">{{ s.d }}</p>
+<div style="margin-top:36px;border-top:1px solid var(--line-hairline)">
+<sc-for list="{{ s.items }}" as="i" hint-placeholder-count="5">
+<div style="display:flex;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line-hairline)">
+<span style="color:var(--gold-500);font-size:10px;line-height:1.6">▪</span>
+<span style="font:var(--type-body);color:var(--text-body)">{{ i }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-for>
+</section>
+
+<section style="background:var(--surface-deep);margin-top:96px;padding:96px 0">
+<div style="max-width:1240px;margin:0 auto;padding:0 56px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:end">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.SectionHeading" eyebrow="Discipline 04" title="Construction" tone="inverse" hint-size="100%,160px"></x-import>
+<p style="font:var(--type-body-lg);color:var(--text-on-deep-muted);max-width:56ch;padding-bottom:6px">Direct construction delivery, executed to the standards set at design stage. Construction has its own page, because the way we build is the part of our service clients ask about most.</p>
+</div>
+<div style="margin-top:56px"><x-import component-from-global-scope="BejewelledDesignSystem_900563.Button" variant="accent" href="#/construction" hint-size="220px,44px">Our construction approach</x-import></div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:96px 56px 0">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.SectionHeading" eyebrow="Sectors" title="Who we build for" hint-size="100%,140px"></x-import>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:40px">
+<sc-for list="{{ sectors }}" as="s" hint-placeholder-count="4">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Card" padding="28px" hint-size="100%,180px">
+<div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-accent);letter-spacing:0.12em">{{ s.n }}</div>
+<h3 style="font:var(--type-h3);margin-top:16px">{{ s.t }}</h3>
+<p style="font:var(--type-body-sm);color:var(--text-muted);margin-top:10px">{{ s.d }}</p>
+</x-import>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<!-- ============================= CONSTRUCTION ============================= -->
+<sc-if value="{{ isConstruction }}" hint-placeholder-val="{{ true }}">
+<section style="max-width:1240px;margin:0 auto;padding:72px 56px 0">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid var(--line-strong);padding-bottom:28px;gap:40px">
+<div>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Eyebrow" hint-size="100%,18px">Construction</x-import>
+<h1 style="font:var(--type-h1);margin-top:16px;max-width:20ch">We build what we draw</h1>
+</div>
+<div style="font-family:var(--font-mono);font-size:var(--text-2xs);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap">Sheet 03 / 05</div>
+</div>
+<p style="font:var(--type-body-lg);color:var(--text-body);max-width:var(--layout-text-max);margin-top:32px">Most projects lose something between the drawing and the building. Bejewelled carries construction in-house so the intent set at design stage survives to handover — one accountable team through pre-contract planning, engineering coordination, site works and post-contract close-out.</p>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:56px 56px 0">
+<div style="position:relative;height:520px;background:var(--surface-plate)">
+<image-slot id="bj-constr-hero" shape="rect" placeholder="Site photograph — works in progress, natural daylight"></image-slot>
+</div>
+<div style="font-family:var(--font-mono);font-size:var(--text-2xs);letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-top:12px">Site works under supervision · Kumasi</div>
+</section>
+
+<section style="background:var(--surface-deep);margin-top:96px;padding:96px 0">
+<div style="max-width:1240px;margin:0 auto;padding:0 56px">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.SectionHeading" eyebrow="The Wholistic Approach" title="Four stages, one team" tone="inverse" hint-size="100%,160px"></x-import>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px;margin-top:64px">
+<sc-for list="{{ stages }}" as="s" hint-placeholder-count="4">
+<div style="border-top:3px solid var(--line-accent);padding-top:24px">
+<div style="font-family:var(--font-mono);font-size:var(--text-sm);color:var(--gold-400)">{{ s.n }}</div>
+<h3 style="font:var(--type-h3);color:var(--text-on-inverse);margin-top:14px">{{ s.t }}</h3>
+<p style="font:var(--type-body-sm);color:var(--text-on-deep-muted);margin-top:14px">{{ s.d }}</p>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:96px 56px 0">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.SectionHeading" eyebrow="Why One Team" title="The difference on site" hint-size="100%,140px"></x-import>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:48px;border-top:1px solid var(--line-rule)">
+<div style="padding:32px 40px 32px 0;border-right:1px solid var(--line-hairline)">
+<div style="font:var(--type-label);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)">The conventional chain</div>
+</div>
+<div style="padding:32px 0 32px 40px;background:var(--paper-050)">
+<div style="font:var(--type-label);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-accent)">The Bejewelled way</div>
+</div>
+<sc-for list="{{ compare }}" as="c" hint-placeholder-count="4">
+<div style="padding:24px 40px 24px 0;border-right:1px solid var(--line-hairline);border-top:1px solid var(--line-hairline);font:var(--type-body);color:var(--text-muted)">{{ c.a }}</div>
+<div style="padding:24px 0 24px 40px;border-top:1px solid var(--line-hairline);background:var(--paper-050);font:var(--type-body);color:var(--text-body)">{{ c.b }}</div>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:96px 56px 0">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:start">
+<div>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Eyebrow" hint-size="100%,18px">Capability</x-import>
+<h2 style="font:var(--type-h2);margin-top:14px;max-width:14ch">What we take on</h2>
+<div style="margin-top:32px;font:var(--type-body-sm);color:var(--text-muted);max-width:34ch">Classified K3, D3 by the Ministry of Works and Housing and registered with the Public Procurement Authority for public sector works.</div>
+</div>
+<div style="border-top:1px solid var(--line-hairline)">
+<sc-for list="{{ capability }}" as="c" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:40px minmax(0,1fr);gap:24px;padding:22px 0;border-bottom:1px solid var(--line-hairline);align-items:baseline">
+<div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-accent);letter-spacing:0.12em">{{ c.n }}</div>
+<div>
+<div style="font-family:var(--font-display);font-size:var(--text-md);color:var(--text-heading)">{{ c.t }}</div>
+<div style="font:var(--type-body-sm);color:var(--text-muted);margin-top:6px">{{ c.d }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+</sc-if>
+
+<!-- ============================= DESIGNS ============================= -->
+<sc-if value="{{ isDesigns }}" hint-placeholder-val="{{ true }}">
+<section style="max-width:1240px;margin:0 auto;padding:72px 56px 0">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid var(--line-strong);padding-bottom:28px;gap:40px">
+<div>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Eyebrow" hint-size="100%,18px">Designs &amp; Portfolio</x-import>
+<h1 style="font:var(--type-h1);margin-top:16px;max-width:22ch">Selected works, 2013 to date</h1>
+</div>
+<div style="font-family:var(--font-mono);font-size:var(--text-2xs);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap">Sheet 04 / 05</div>
+</div>
+<p style="font:var(--type-body-lg);color:var(--text-body);max-width:var(--layout-text-max);margin-top:32px">Over thirty completed commissions across residential, commercial, educational, industrial and healthcare work. The records below are drawn from the company profile; each carries its scope, location and status.</p>
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-top:56px;flex-wrap:wrap">
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<sc-for list="{{ filters }}" as="f" hint-placeholder-count="6">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Tag" selected="{{ f.on }}" on-click="{{ f.pick }}" hint-size="90px,30px">{{ f.label }}</x-import>
+</sc-for>
+</div>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Tabs" tabs="{{ viewTabs }}" value="{{ view }}" on-change="{{ setView }}" hint-size="220px,36px"></x-import>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:40px 56px 0">
+<sc-if value="{{ isPlates }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+<sc-for list="{{ shown }}" as="p" hint-placeholder-count="6">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Card" as="a" href="{{ p.href }}" interactive="{{ true }}" padding="0" hint-size="100%,380px">
+<div style="position:relative;height:240px;background:var(--surface-plate);overflow:hidden;border-top-left-radius:var(--radius-md);border-top-right-radius:var(--radius-md)">
+<image-slot id="{{ p.slotA }}" shape="rect" placeholder="Project photograph"></image-slot>
+</div>
+<div style="padding:24px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+<span style="font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.12em;color:var(--text-accent)">{{ p.n }}</span>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Badge" tone="success" hint-size="90px,22px">{{ p.status }}</x-import>
+</div>
+<h3 style="font:var(--type-h3);margin-top:14px;color:var(--text-heading)">{{ p.client }}</h3>
+<p style="font:var(--type-body-sm);color:var(--text-muted);margin-top:8px">{{ p.scope }}</p>
+<div style="display:flex;justify-content:space-between;gap:16px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line-hairline);font-family:var(--font-mono);font-size:var(--text-2xs);letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">
+<span>{{ p.location }}</span><span>{{ p.sector }}</span>
+</div>
+</div>
+</x-import>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ isIndex }}" hint-placeholder-val="{{ true }}">
+<div style="border-top:1px solid var(--line-rule)">
+<sc-for list="{{ shown }}" as="p" hint-placeholder-count="7">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.ProjectRow" number="{{ p.n }}" client="{{ p.client }}" scope="{{ p.scope }}" location="{{ p.location }}" status="{{ p.status }}" on-click="{{ p.open }}" hint-size="100%,90px"></x-import>
+</sc-for>
+</div>
+</sc-if>
+</section>
+</sc-if>
+
+<!-- ============================= PROJECT ============================= -->
+<sc-if value="{{ isProject }}" hint-placeholder-val="{{ true }}">
+<section style="max-width:1240px;margin:0 auto;padding:40px 56px 0">
+<a href="#/designs" style="font:var(--type-eyebrow);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--text-muted);border:0">← All designs</a>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:end;margin-top:40px;padding-bottom:32px;border-bottom:2px solid var(--line-strong)">
+<div>
+<div style="font-family:var(--font-mono);font-size:var(--text-lg);color:var(--text-accent);letter-spacing:0.12em">{{ project.n }}</div>
+<h1 style="font:var(--type-h1);margin-top:18px">{{ project.client }}</h1>
+</div>
+<div style="font-family:var(--font-mono);font-size:var(--text-2xs);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);text-align:right">Project record · Bejewelled Enterprise</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:32px 56px 0">
+<div style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line-hairline);border-bottom:1px solid var(--line-hairline)">
+<sc-for list="{{ project.fields }}" as="f" hint-placeholder-count="4">
+<div style="padding:24px 24px 24px 0;border-left:1px solid var(--line-hairline)">
+<div style="font:var(--type-label);letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">{{ f.k }}</div>
+<div style="font:var(--type-body-sm);color:var(--text-body);margin-top:8px">{{ f.v }}</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:56px 56px 0">
+<div style="position:relative;height:560px;background:var(--surface-plate)">
+<image-slot id="{{ project.slotA }}" shape="rect" placeholder="Primary project photograph — frontal or three-quarter view"></image-slot>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:24px">
+<div style="position:relative;height:320px;background:var(--surface-plate)">
+<image-slot id="{{ project.slotB }}" shape="rect" placeholder="Secondary photograph — detail or interior"></image-slot>
+</div>
+<div style="position:relative;height:320px;background:var(--surface-plate)">
+<image-slot id="{{ project.slotC }}" shape="rect" placeholder="Secondary photograph — space in use"></image-slot>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:72px 56px 0">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:start">
+<div>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Eyebrow" hint-size="100%,18px">The Commission</x-import>
+<h2 style="font:var(--type-h2);margin-top:14px;max-width:14ch">{{ project.sector }} work</h2>
+</div>
+<div>
+<p style="font:var(--type-body-lg);color:var(--text-body);max-width:var(--layout-text-max)">{{ project.note }}</p>
+<p style="font:var(--type-body);color:var(--text-body);max-width:var(--layout-text-max);margin-top:24px">Bejewelled carried the commission as a wholistic service: design and documentation, engineering coordination, pre-contract planning and site delivery under one accountable team, through to post-contract close-out.</p>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:72px 56px 0">
+<div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line-rule)">
+<a href="{{ prev.href }}" style="padding:32px 40px 32px 0;border-right:1px solid var(--line-hairline);border:0;border-right:1px solid var(--line-hairline)">
+<div style="font:var(--type-label);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)">← Previous record {{ prev.n }}</div>
+<div style="font-family:var(--font-display);font-size:var(--text-lg);color:var(--text-heading);margin-top:12px">{{ prev.client }}</div>
+</a>
+<a href="{{ next.href }}" style="padding:32px 0 32px 40px;border:0;text-align:right">
+<div style="font:var(--type-label);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)">Next record {{ next.n }} →</div>
+<div style="font-family:var(--font-display);font-size:var(--text-lg);color:var(--text-heading);margin-top:12px">{{ next.client }}</div>
+</a>
+</div>
+</section>
+</sc-if>
+
+<!-- ============================= CONTACT ============================= -->
+<sc-if value="{{ isContact }}" hint-placeholder-val="{{ true }}">
+<section style="max-width:1240px;margin:0 auto;padding:72px 56px 0">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid var(--line-strong);padding-bottom:28px;gap:40px">
+<div>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Eyebrow" hint-size="100%,18px">Contact</x-import>
+<h1 style="font:var(--type-h1);margin-top:16px;max-width:24ch">Let's build something lasting, together.</h1>
+</div>
+<div style="font-family:var(--font-mono);font-size:var(--text-2xs);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap">Sheet 05 / 05</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:56px 56px 0">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:64px;align-items:start">
+<div>
+<sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;gap:24px">
+<div style="font:var(--type-body);color:var(--text-body);max-width:56ch">Tell us about the commission. We will come back to you with the next practical step — a site visit, a brief conversation, or the company profile if you are still comparing practices.</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Input" label="Full name" placeholder="Your name" required="{{ true }}" hint-size="100%,80px"></x-import>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Input" label="Organisation" placeholder="Company or institution" hint-size="100%,80px"></x-import>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Input" label="Email" type="email" placeholder="you@example.com" required="{{ true }}" hint-size="100%,80px"></x-import>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Input" label="Telephone" placeholder="024 000 0000" hint-size="100%,80px"></x-import>
+</div>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Select" label="Service required" options="{{ serviceOptions }}" placeholder="Select a service" hint-size="100%,80px"></x-import>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Textarea" label="About the project" placeholder="Location, type of building, and where the project stands today." rows="{{ six }}" hint-size="100%,160px"></x-import>
+<div style="display:flex;align-items:center;gap:24px;margin-top:8px">
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Button" variant="primary" size="lg" on-click="{{ send }}" hint-size="180px,52px">Send enquiry</x-import>
+<span style="font-family:var(--font-mono);font-size:var(--text-2xs);letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">Or call 0244 037 166</span>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ sent }}" hint-placeholder-val="{{ true }}">
+<div style="border-top:3px solid var(--line-accent);padding-top:32px">
+<h2 style="font:var(--type-h2)">Thank you.</h2>
+<p style="font:var(--type-body-lg);color:var(--text-body);margin-top:20px;max-width:52ch">Your enquiry has been received. We will respond within two working days. If the project is urgent, call 0244 037 166 directly.</p>
+<div style="margin-top:32px"><x-import component-from-global-scope="BejewelledDesignSystem_900563.Button" variant="ghost" on-click="{{ reset }}" hint-size="180px,44px">Send another enquiry</x-import></div>
+</div>
+</sc-if>
+</div>
+<div>
+<div style="border-top:1px solid var(--line-rule)">
+<sc-for list="{{ contactFields }}" as="c" hint-placeholder-count="4">
+<div style="padding:24px 0;border-bottom:1px solid var(--line-hairline)">
+<div style="font:var(--type-label);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)">{{ c.k }}</div>
+<div style="font:var(--type-body);color:var(--text-heading);margin-top:10px;white-space:pre-line">{{ c.v }}</div>
+</div>
+</sc-for>
+</div>
+<div style="position:relative;height:280px;background:var(--surface-plate);margin-top:40px">
+<image-slot id="bj-contact-map" shape="rect" placeholder="Map or photograph of the Apire office"></image-slot>
+</div>
+<div style="font-family:var(--font-mono);font-size:var(--text-2xs);letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-top:12px">Plot 41A, Block J, Apire · Digital Address AK-361-7399</div>
+</div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ showCta }}" hint-placeholder-val="{{ true }}">
+<section style="max-width:1240px;margin:0 auto;padding:96px 56px 0">
+<div style="border-top:2px solid var(--line-strong);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px;align-items:center;padding:56px 0">
+<div>
+<h2 style="font:var(--type-h2)">Let's build something lasting, together.</h2>
+<p style="font:var(--type-body);color:var(--text-muted);margin-top:14px">Plot 41A, Block J, Apire, Kumasi, Ghana · 0244 037 166 • 0274 271 421</p>
+</div>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Button" variant="primary" size="lg" href="#/contact" hint-size="220px,52px">Start a conversation</x-import>
+</div>
+</section>
+</sc-if>
+
+</main>
+
+<footer style="background:var(--surface-inverse);color:var(--text-on-inverse);margin-top:128px;padding:96px 0 32px">
+<div style="max-width:1240px;margin:0 auto;padding:0 56px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:56px;padding-bottom:56px;border-bottom:1px solid var(--line-inverse)">
+<div>
+<x-import component-from-global-scope="BejewelledDesignSystem_900563.Logo" variant="lockup" on="dark" height="66px" asset-path="assets/" hint-size="160px,66px"></x-import>
+<p style="font:var(--type-body-sm);color:var(--text-on-inverse-muted);margin-top:24px;max-width:34ch">Designing livable spaces. Solving everyday environmental problems. Delivering a wholistic service to every client.</p>
+</div>
+<div>
+<div style="font:var(--type-label);letter-spacing:0.14em;text-transform:uppercase;color:var(--gold-200)">Practice</div>
+<div style="display:flex;flex-direction:column;gap:12px;margin-top:18px">
+<a href="#/services" style="font:var(--type-body-sm);color:var(--text-on-inverse-muted);border:0">Services</a>
+<a href="#/construction" style="font:var(--type-body-sm);color:var(--text-on-inverse-muted);border:0">Construction</a>
+<a href="#/designs" style="font:var(--type-body-sm);color:var(--text-on-inverse-muted);border:0">Designs</a>
+<a href="#/contact" style="font:var(--type-body-sm);color:var(--text-on-inverse-muted);border:0">Contact</a>
+</div>
+</div>
+<div>
+<div style="font:var(--type-label);letter-spacing:0.14em;text-transform:uppercase;color:var(--gold-200)">Disciplines</div>
+<div style="display:flex;flex-direction:column;gap:12px;margin-top:18px;font:var(--type-body-sm);color:var(--text-on-inverse-muted)">
+<span>Architectural Services</span><span>Engineering Services</span><span>Project Management</span><span>Construction</span>
+</div>
+</div>
+<div>
+<div style="font:var(--type-label);letter-spacing:0.14em;text-transform:uppercase;color:var(--gold-200)">Registered office</div>
+<div style="margin-top:18px;font:var(--type-body-sm);color:var(--text-on-inverse-muted);line-height:1.9">Plot 41A, Block J, Apire,<br>Kumasi, Ghana<br><span style="font-family:var(--font-mono);font-size:var(--text-xs)">Digital Address: AK-361-7399</span><br>0244 037 166 • 0274 271 421</div>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding-top:24px;font-family:var(--font-mono);font-size:var(--text-2xs);letter-spacing:0.1em;color:var(--ink-300)">
+<span>© 2026 Bejewelled Enterprise. All rights reserved.</span>
+<span>Registered 2013 · BN433602013 · Ministry of Works and Housing K3, D3</span>
+</div>
+</div>
+</footer>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;worksDefaultView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;plates&quot;,&quot;index&quot;],&quot;default&quot;:&quot;plates&quot;,&quot;tsType&quot;:&quot;'plates'|'index'&quot;,&quot;section&quot;:&quot;Designs page&quot;},&quot;railLabel&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Bejewelled Enterprise · Kumasi, Ghana&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Sheet frame&quot;}}">
+const PROJECTS = [
+  {n:'01',id:'01',client:'State Housing Company Limited',scope:'Construction of 16 No. Town Houses',location:'Osu, Accra',sector:'Residential',status:'Completed',
+   note:'A residential commission of sixteen town houses for State Housing Company Limited, delivered at Osu, Accra. The works are complete and handed over.'},
+  {n:'02',id:'02',client:'Komfo Anokye Teaching Hospital Credit Union',scope:'Office complex including a banking hall',location:'Bantama, Kumasi',sector:'Commercial',status:'Completed',
+   note:'An office complex incorporating a banking hall for the Komfo Anokye Teaching Hospital Credit Union at Bantama, Kumasi. The works are complete and handed over.'},
+  {n:'03',id:'03',client:'Word of Faith Outreach Center',scope:'Pre-school block',location:'Daban, Kumasi',sector:'Educational',status:'Completed',
+   note:'A pre-school block for the Word of Faith Outreach Center at Daban, Kumasi. The works are complete and handed over.'},
+  {n:'04',id:'04',client:'Presbyterian University Ghana',scope:'Renovation and extension of a three-storey lecture block',location:'Kumasi City Campus',sector:'Educational',status:'Completed',
+   note:'Renovation and extension of a three-storey lecture block for Presbyterian University Ghana at the Kumasi City Campus. The works are complete and handed over.'},
+  {n:'05',id:'05',client:'Hadsbak Enterprise',scope:'Factory and office space',location:'Nwamase, Kumasi',sector:'Industrial',status:'Completed',
+   note:'Factory and office space for Hadsbak Enterprise at Nwamase, Kumasi. The works are complete and handed over.'},
+  {n:'06',id:'06',client:'La Petite Chemist',scope:'Pharmacy building',location:'Ahodwo, Kumasi',sector:'Commercial',status:'Completed',
+   note:'A pharmacy building for La Petite Chemist at Ahodwo, Kumasi. The works are complete and handed over.'},
+  {n:'07',id:'07',client:'Signetcare Medical Services',scope:'Clinic extension',location:'Asokwa, Kumasi',sector:'Healthcare',status:'Completed',
+   note:'A clinic extension for Signetcare Medical Services at Asokwa, Kumasi. The works are complete and handed over.'}
+];
+
+const SERVICES = [
+  {n:'01',t:'Architectural Services',tag:'Concept · Documentation',
+   d:'Concept design, spatial planning and full architectural documentation for institutional, commercial, industrial and residential buildings, grounded in our philosophy of designing genuinely livable, human-centred spaces.',
+   items:['Concept and schematic design','Spatial planning and space programming','Full architectural documentation','Statutory drawings and permit support','Detail design and material specification']},
+  {n:'02',t:'Engineering Services',tag:'Structural · Buildability',
+   d:'Coordinated structural and engineering input that translates design intent into safe, buildable and durable solutions, integrated from the earliest stages of a project.',
+   items:['Structural design and coordination','Building services coordination','Buildability and constructability review','Technical documentation for construction','Engineering support during site works']},
+  {n:'03',t:'Project Management',tag:'Pre- and post-contract',
+   d:'Pre-contract and post-contract oversight — budgeting, scheduling, procurement and site coordination — that keeps projects on programme and accountable to our clients from start to finish.',
+   items:['Budgeting and cost planning','Programme and scheduling','Procurement and tender administration','Site coordination and progress reporting','Post-contract close-out and handover']}
+];
+
+const STAGES = [
+  {n:'01',t:'Pre-contract planning',d:'Budget, programme and procurement route are settled before anyone breaks ground, so the build starts from a decision rather than an assumption.'},
+  {n:'02',t:'Engineering coordination',d:'Structural and services input is resolved against the architecture, not after it — the drawings that reach site are already buildable.'},
+  {n:'03',t:'Site construction',d:'Construction is delivered and supervised by the same team that drew it, holding the standards set at design stage.'},
+  {n:'04',t:'Post-contract close-out',d:'Snagging, documentation and handover are completed properly, and we remain accountable for the building after the client moves in.'}
+];
+
+const COMPARE = [
+  {a:'Design, engineering and construction sit with separate firms.',b:'One accountable team from the first conversation to close-out.'},
+  {a:'Drawings are reinterpreted at every handover between consultants.',b:'Design intent is carried through by the people who drew it.'},
+  {a:'Cost and programme are argued about after the fact.',b:'Budget and programme are set pre-contract and tracked against.'},
+  {a:'Responsibility is divided when a defect appears.',b:'One point of accountability through handover and beyond.'}
+];
+
+const CAPABILITY = [
+  {n:'01',t:'New build construction',d:'Institutional, commercial, industrial and residential buildings from foundation to finishes.'},
+  {n:'02',t:'Renovation and extension',d:'Works to occupied and ageing buildings, including multi-storey teaching blocks.'},
+  {n:'03',t:'Factory and industrial space',d:'Production and warehouse space with associated office accommodation.'},
+  {n:'04',t:'Healthcare and clinical works',d:'Clinic buildings and extensions delivered around live operations.'},
+  {n:'05',t:'Residential developments',d:'Single houses through to multi-unit town house schemes.'},
+  {n:'06',t:'Fit-out and finishing works',d:'Interior fit-out, external works and site infrastructure.'}
+];
+
+const SECTORS = [
+  {n:'01',t:'Institutional',d:'Universities, schools, churches and public sector clients.'},
+  {n:'02',t:'Commercial',d:'Offices, banking halls, retail and pharmacy buildings.'},
+  {n:'03',t:'Industrial',d:'Factories, warehousing and associated office space.'},
+  {n:'04',t:'Residential',d:'Individual houses and multi-unit housing schemes.'}
+];
+
+const CREDS = [
+  {k:'Certificate of registration',v:'BN433602013, issued 22 August 2013'},
+  {k:'Ministry of Works and Housing',v:'Classification K3, D3'},
+  {k:'Public Procurement Authority',v:'Registered'},
+  {k:'Architects Registration Council',v:'Registered'}
+];
+
+const CONTACT = [
+  {k:'Registered address',v:'Plot 41A, Block J, Apire\nKumasi, Ghana'},
+  {k:'Digital address',v:'AK-361-7399'},
+  {k:'Telephone',v:'0244 037 166 • 0274 271 421'},
+  {k:'Practice',v:'Bejewelled Enterprise · Registered 2013'}
+];
+
+const ROUTES = ['home','services','construction','designs','project','contact'];
+const NAVITEMS = [['home','Home'],['services','Services'],['construction','Construction'],['designs','Designs'],['contact','Contact']];
+const SHEETS = {home:'01',services:'02',construction:'03',designs:'04',project:'04',contact:'05'};
+
+class Component extends DCLogic {
+  state = {route:'home', pid:'01', view:null, sector:'All', sent:false};
+
+  componentDidMount(){
+    this._onHash = () => this.sync();
+    window.addEventListener('hashchange', this._onHash);
+    this.sync(true);
+  }
+  componentWillUnmount(){ window.removeEventListener('hashchange', this._onHash); }
+
+  sync(first){
+    const parts = String(location.hash || '').replace(/^#\/?/, '').split('/').filter(Boolean);
+    const r = ROUTES.indexOf(parts[0]) >= 0 ? parts[0] : 'home';
+    const pid = parts[1] && PROJECTS.some(p => p.id === parts[1]) ? parts[1] : this.state.pid;
+    if (r !== this.state.route || pid !== this.state.pid) {
+      this.setState({route:r, pid, sent:false});
+      if (!first) window.scrollTo(0, 0);
+    }
+  }
+
+  renderVals(){
+    const {route, pid, sector, sent} = this.state;
+    const view = this.state.view || this.props.worksDefaultView || 'plates';
+    const decorate = p => Object.assign({}, p, {
+      href:'#/project/' + p.id,
+      slotA:'bj-p' + p.id + 'a', slotB:'bj-p' + p.id + 'b', slotC:'bj-p' + p.id + 'c',
+      open:() => { location.hash = '#/project/' + p.id; }
+    });
+    const all = PROJECTS.map(decorate);
+    const idx = Math.max(0, all.findIndex(p => p.id === pid));
+    const cur = all[idx];
+    const sectorList = ['All'].concat(PROJECTS.map(p => p.sector).filter((s, i, a) => a.indexOf(s) === i));
+
+    return {
+      railLabel: this.props.railLabel ?? 'Bejewelled Enterprise · Kumasi, Ghana',
+      sheetNo: SHEETS[route] || '01',
+      nav: NAVITEMS.map(([k, label]) => ({key:k, label, href:'#/' + k, active:route === k, idle:route !== k})),
+
+      isHome: route === 'home',
+      isServices: route === 'services',
+      isConstruction: route === 'construction',
+      isDesigns: route === 'designs',
+      isProject: route === 'project',
+      isContact: route === 'contact',
+      showCta: route !== 'contact',
+
+      two: 2, six: 6, false: false,
+
+      stats: [{value:'30+', label:'Completed projects'}, {value:'20+', label:'Years of leadership'},
+              {value:'4', label:'Core disciplines'}, {value:'2013', label:'Registered'}],
+      disciplines: [
+        {n:'01', t:'Architectural Services', d:'Concept design, spatial planning and full architectural documentation, grounded in our philosophy of designing genuinely livable, human-centred spaces.'},
+        {n:'02', t:'Engineering Services', d:'Coordinated structural and engineering input that translates design intent into safe, buildable and durable solutions.'},
+        {n:'03', t:'Project Management', d:'Pre-contract and post-contract oversight — budgeting, scheduling, procurement and site coordination.'},
+        {n:'04', t:'Construction', d:'Direct construction delivery, executed to the standards set at design stage.'}
+      ],
+      services: SERVICES, stages: STAGES, compare: COMPARE, capability: CAPABILITY,
+      sectors: SECTORS, creds: CREDS, contactFields: CONTACT,
+
+      featured: [all[0], all[1], all[3]],
+      shown: sector === 'All' ? all : all.filter(p => p.sector === sector),
+      filters: sectorList.map(s => ({label:s, on:s === sector, pick:() => this.setState({sector:s})})),
+      viewTabs: [{value:'plates', label:'Plates'}, {value:'index', label:'Index'}],
+      view, isPlates: view === 'plates', isIndex: view === 'index',
+      setView: v => this.setState({view:v}),
+
+      project: Object.assign({}, cur, {fields:[
+        {k:'Client', v:cur.client},
+        {k:'Scope of works', v:cur.scope},
+        {k:'Location', v:cur.location},
+        {k:'Status', v:cur.status}
+      ]}),
+      prev: all[(idx - 1 + all.length) % all.length],
+      next: all[(idx + 1) % all.length],
+
+      serviceOptions: ['Architectural Services', 'Engineering Services', 'Project Management', 'Construction', 'Full wholistic service'],
+      sent, notSent: !sent,
+      send: () => this.setState({sent:true}),
+      reset: () => this.setState({sent:false})
+    };
+  }
+}
+</script>
+</body>
+</html>
