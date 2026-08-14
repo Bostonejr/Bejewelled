@@ -39,15 +39,23 @@ NEXT_PUBLIC_SANITY_PROJECT_ID=0xf46qxf
 NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SANITY_API_VERSION=2026-02-01
 SANITY_API_READ_TOKEN=…        # server only — Live Content and draft mode
-WEB3FORMS_ACCESS_KEY=…         # server only — the enquiry form
+RESEND_API_KEY=…               # server only — the enquiry form
+ENQUIRY_TO=…                   # inbox the enquiries reach
+ENQUIRY_FROM=…                 # verified sender, "Bejewelled <enquiries@…>"
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
 `.env` at the repo root holds `SANITY_API_WRITE_TOKEN`, used by `scripts/` and by
 nothing else. Neither file is committed.
 
-While `WEB3FORMS_ACCESS_KEY` is empty the enquiry route returns a stubbed success
-in development and a clear error in production — it never silently drops an enquiry.
+While any of `RESEND_API_KEY` / `ENQUIRY_TO` / `ENQUIRY_FROM` is empty the enquiry
+route returns a stubbed success in development and a clear 503 in production — it
+never silently drops an enquiry.
+
+Mail must go through a provider that accepts a **server-side** call. Web3Forms, the
+original choice, does not: its free tier answers a server call with `403 "Use our API
+in client side"` and its access key is public by design, which defeats the point of
+having `/api/contact` at all.
 
 ## Seeding
 

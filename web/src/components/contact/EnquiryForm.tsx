@@ -5,6 +5,7 @@ import {useRef, useState} from 'react'
 import {Button, Input, Select, Textarea} from '@/components/ds'
 import {
   EMPTY_ENQUIRY,
+  isRequired,
   validateEnquiry,
   type Enquiry,
   type EnquiryErrors,
@@ -165,7 +166,7 @@ export function EnquiryForm({
           id="enquiry-name"
           label="Full name"
           placeholder="Your name"
-          required
+          required={isRequired('name')}
           autoComplete="name"
           value={values.name}
           error={errors.name}
@@ -185,7 +186,7 @@ export function EnquiryForm({
           label="Email"
           type="email"
           placeholder="you@example.com"
-          required
+          required={isRequired('email')}
           autoComplete="email"
           value={values.email}
           error={errors.email}
@@ -196,6 +197,7 @@ export function EnquiryForm({
           label="Telephone"
           type="tel"
           placeholder="024 000 0000"
+          required={isRequired('telephone')}
           autoComplete="tel"
           value={values.telephone}
           error={errors.telephone}
@@ -207,6 +209,7 @@ export function EnquiryForm({
         id="enquiry-service"
         label="Service required"
         placeholder="Select a service"
+        required={isRequired('service')}
         options={serviceOptions}
         value={values.service}
         error={errors.service}

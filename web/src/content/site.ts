@@ -113,18 +113,25 @@ export const siteDefaults: SiteSettings = {
 }
 
 /**
- * The sheet number printed at the foot of the rail.
+ * The sheet number printed at the foot of the rail and in the "Sheet 02 / 05"
+ * marker on every inner page.
  *
- * The design's router maps home/services/construction/designs/project/contact
- * to 01/02/03/04/04/05 — a project detail page is still sheet 04, because it is
- * part of the designs set. Anything unrouted (404) falls back to 01, matching
- * the design's `SHEETS[route] || '01'`.
+ * **This list must stay in the same order as `nav` above.** The design's own
+ * router numbered home/services/construction/designs/contact 01–05 because that
+ * was its menu order; the numbering was never independent of the menu, it just
+ * happened to match. Once the nav was reordered the two disagreed — Designs sat
+ * second in the menu and printed "Sheet 04" — so the numbers follow the menu,
+ * which is what a visitor counting down the nav expects.
+ *
+ * A project detail page takes the Designs number, because it is part of the
+ * designs set. Anything unrouted (404) falls back to 01, matching the design's
+ * `SHEETS[route] || '01'`.
  */
 const SHEETS: ReadonlyArray<readonly [RegExp, string]> = [
   [/^\/$/, '01'],
-  [/^\/services(\/|$)/, '02'],
+  [/^\/designs(\/|$)/, '02'],
   [/^\/construction(\/|$)/, '03'],
-  [/^\/designs(\/|$)/, '04'],
+  [/^\/services(\/|$)/, '04'],
   [/^\/contact(\/|$)/, '05'],
 ]
 

@@ -7,9 +7,15 @@
  * what the field told them to fix does not then get a different complaint back
  * from the server.
  *
- * Which fields are required comes from the design, not from what would be
- * convenient: it marks Full name and Email with the red asterisk and nothing
- * else.
+ * Required fields: Full name, Email, Telephone and Service required. The design
+ * marks only the first two, and the practice asked for the other two on top of
+ * it — a deliberate departure, because an enquiry the practice cannot ring back
+ * about, or cannot route to a discipline, costs them more than the extra two
+ * fields cost the visitor. Organisation and the message stay optional.
+ *
+ * REQUIRED is the single source of that decision: the asterisks in the form,
+ * the `required` attributes, and the checks below all read from it, so a field
+ * cannot end up starred but unvalidated or validated but unstarred.
  */
 
 export type EnquiryField =
@@ -50,14 +56,31 @@ export const MAX_LENGTH: Record<EnquiryField, number> = {
  */
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+/**
+ * The required set, and the message each empty field gets. Ordered as the form
+ * is, so the "first invalid field" the form focuses is the topmost one.
+ */
+export const REQUIRED: ReadonlyArray<readonly [EnquiryField, string]> = [
+  ['name', 'Please tell us your name.'],
+  ['email', 'We need an email address to reply to.'],
+  ['telephone', 'Please give us a number we can reach you on.'],
+  ['service', 'Please choose the service you need.'],
+]
+
+const REQUIRED_FIELDS = new Set(REQUIRED.map(([field]) => field))
+
+export const isRequired = (field: EnquiryField): boolean =>
+  REQUIRED_FIELDS.has(field)
+
 export function validateEnquiry(values: Enquiry): EnquiryErrors {
   const errors: EnquiryErrors = {}
   const trimmed = (field: EnquiryField) => (values[field] ?? '').trim()
 
-  if (!trimmed('name')) errors.name = 'Please tell us your name.'
-  if (!trimmed('email')) {
-    errors.email = 'We need an email address to reply to.'
-  } else if (!EMAIL.test(trimmed('email'))) {
+  for (const [field, message] of REQUIRED) {
+    if (!trimmed(field)) errors[field] = message
+  }
+
+  if (!errors.email && !EMAIL.test(trimmed('email'))) {
     errors.email = 'That does not look like an email address.'
   }
 

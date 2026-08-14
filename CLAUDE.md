@@ -145,13 +145,21 @@ Enforced as field descriptions throughout `studio/schemaTypes/` (see `brandCopy.
 ## Environment
 
 `web/.env.local` holds the Sanity project id/dataset/apiVersion, `SANITY_API_READ_TOKEN`,
-`WEB3FORMS_ACCESS_KEY` and `NEXT_PUBLIC_SITE_URL`. `.env` at the root holds
-`SANITY_API_WRITE_TOKEN`, used by `scripts/` and nothing else. Both are gitignored.
+`NEXT_PUBLIC_SITE_URL`, and the three enquiry-delivery vars `RESEND_API_KEY`, `ENQUIRY_TO`,
+`ENQUIRY_FROM`. `.env` at the root holds `SANITY_API_WRITE_TOKEN`, used by `scripts/` and nothing
+else. Both are gitignored.
 
-While `WEB3FORMS_ACCESS_KEY` is empty, `/api/contact` returns a stubbed success in development and a
-clear 503 in production — it never silently drops an enquiry. That route's rate limiter is
-**in-process**: a `429` while testing usually means a previous test used up the 5/hour, and
-restarting the dev server clears it.
+While any of the three enquiry vars is empty, `/api/contact` returns a stubbed success in
+development and a clear 503 in production — it never silently drops an enquiry. That route's rate
+limiter is **in-process**: a `429` while testing usually means a previous test used up the 5/hour,
+and restarting the dev server clears it.
+
+**Mail goes through Resend, not Web3Forms, and must stay server-side.** Web3Forms was the original
+choice and it cannot work here: its free tier answers any server-side call with
+`403 "Use our API in client side ... (Pro plan is required)"`, and its access key is public by
+design. `/api/contact` exists precisely to keep the key secret and to validate and rate-limit before
+anything leaves, so the provider has to be one that accepts a server-side call. `docs/PLAN.md` §7.3
+and `docs/plan.html` still describe the Web3Forms proxy and are stale on this point only.
 
 ## Also present
 
