@@ -294,6 +294,26 @@
 }
 
 /* ============================================================================
+   Why every auto-fit grid on this site is written
+   `repeat(auto-fit, minmax(min(100%, Npx), 1fr))` and never `minmax(Npx, 1fr)`.
+
+   auto-fit resolves the track to at least the minimum, whatever the container
+   is. A bare `minmax(320px, 1fr)` therefore keeps a 320px track inside a 280px
+   column and the row runs off the side of the screen — silently, because the
+   layout is correct at every width the design was drawn at and only fails
+   below the minimum. That is the whole of the narrow-viewport bug: the deep
+   blue band's text spilling past the field, the footer columns overhanging the
+   gutter, the contact form's name/email pair refusing to stack.
+
+   `min(100%, Npx)` clamps the minimum to the container, so the track collapses
+   to a single full-width column instead of overflowing. It changes nothing at
+   or above Npx — the design's own value is preserved exactly, which is why
+   this is a gap #01 mobile derivation and not a deviation.
+
+   Grep for `repeat(auto-fit` before adding one; there is no bare-px form left.
+   ========================================================================= */
+
+/* ============================================================================
    Scroll reveal: a fade plus a 12–16px rise over --duration-reveal, and
    nothing else. No bounce, no spring, no scale, no parallax. Motion is
    already zeroed under prefers-reduced-motion by motion.css, and the
@@ -323,6 +343,16 @@
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+/* A single long word in a display heading — "Architectural", "Construction" —
+   is wider than a 280px screen's text column at --type-h2, and an unbreakable
+   word overflows its container rather than shrinking it. `break-word` breaks
+   only where a word would otherwise overflow, so it is inert at every width
+   the design was drawn at, and unlike `anywhere` it does not change min-content
+   sizing, so no grid track resizes because of it. On body so it inherits. */
+body {
+  overflow-wrap: break-word;
 }
 
 html {

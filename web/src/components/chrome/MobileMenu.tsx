@@ -27,29 +27,43 @@ import {isActiveRoute, type NavItem} from '@/content/site'
  * nothing else — no slide, no scale — and every duration zeroes under
  * prefers-reduced-motion via motion.css.
  */
-export function MobileMenu({
-  items,
-  phone,
-  ctaLabel = 'Get in touch',
-  ctaHref = '/contact',
-}: {
+type MobileMenuProps = {
   items: NavItem[]
   phone: string
   ctaLabel?: string
   ctaHref?: string
-}) {
-  const [open, setOpen] = useState(false)
+}
+
+/**
+ * Navigating closes the sheet, and `key={pathname}` is what does it: a changed
+ * key remounts the sheet, which resets `open` to false. It covers link taps,
+ * the back button, the forward button and any programmatic navigation with one
+ * line and no effect.
+ *
+ * The obvious `useEffect(() => setOpen(false), [pathname])` is a setState in an
+ * effect body — it cascades a second render, and react-hooks/set-state-in-effect
+ * rejects it. Deriving `open` from a stored pathname avoids the effect but not
+ * the bug: the stored value survives the navigation, so going back and then
+ * forward again lands on the route the sheet was opened on and springs it open.
+ * Remounting has no such state to survive.
+ */
+export function MobileMenu(props: MobileMenuProps) {
   const pathname = usePathname()
+  return <MobileMenuSheet key={pathname} pathname={pathname} {...props} />
+}
+
+function MobileMenuSheet({
+  items,
+  phone,
+  pathname,
+  ctaLabel = 'Get in touch',
+  ctaHref = '/contact',
+}: MobileMenuProps & {pathname: string}) {
   const panelRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
 
+  const [open, setOpen] = useState(false)
   const close = useCallback(() => setOpen(false), [])
-
-  // Navigating closes the sheet. Comparing on pathname rather than wiring
-  // onClick to each link also covers back/forward.
-  useEffect(() => {
-    setOpen(false)
-  }, [pathname])
 
   // While the sheet is open: lock the page behind it, close on Escape, and
   // keep Tab inside the panel.
@@ -96,7 +110,7 @@ export function MobileMenu({
   }, [open, close])
 
   return (
-    <div className="md:hidden">
+    <div className="ml-auto lg:hidden">
       <button
         ref={triggerRef}
         type="button"
@@ -145,6 +159,12 @@ export function MobileMenu({
                   <Link
                     key={item.href}
                     href={item.href}
+                    // The key remount closes the sheet whenever the route
+                    // changes, which is every row but one: tapping the row for
+                    // the page you are already on navigates nowhere, so the
+                    // pathname never changes, nothing remounts, and the sheet
+                    // would sit there open. This closes that one case.
+                    onClick={close}
                     aria-current={active ? 'page' : undefined}
                     className={[
                       'grid grid-cols-[40px_minmax(0,1fr)] items-baseline gap-6 border-b border-line-hairline py-[18px] pl-3 transition-control',

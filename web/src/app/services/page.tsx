@@ -57,7 +57,7 @@ export default async function ServicesPage() {
         {services.map((service, index) => (
           <div
             key={service?.title ?? index}
-            className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-16 border-t-[3px] border-line-accent py-14"
+            className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] gap-16 border-t-[3px] border-line-accent py-14"
           >
             <div>
               <div className="font-mono text-lg tabular-nums text-text-accent">
@@ -99,7 +99,7 @@ export default async function ServicesPage() {
 
       {data.constructionBand ? (
         <DeepBand>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-end gap-16">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] items-end gap-16">
             <SectionHeading
               eyebrow={data.constructionBand.eyebrow}
               title={data.constructionBand.title}
@@ -127,7 +127,7 @@ export default async function ServicesPage() {
             title={data.sectorsBlock?.title}
           />
 
-          <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-6">
+          <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-6">
             {sectors.map((sector, index) => (
               <Card key={sector?.title ?? index} padding="p-7">
                 <div className="font-mono text-xs tracking-[0.12em] tabular-nums text-text-accent">

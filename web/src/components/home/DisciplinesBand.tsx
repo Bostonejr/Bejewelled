@@ -24,7 +24,7 @@ export function DisciplinesBand({disciplines}: {disciplines: Disciplines}) {
 
   return (
     <DeepBand>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-end gap-16">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] items-end gap-16">
         <SectionHeading
           eyebrow={disciplines.eyebrow}
           title={disciplines.title}
@@ -35,7 +35,7 @@ export function DisciplinesBand({disciplines}: {disciplines: Disciplines}) {
         </p>
       </div>
 
-      <div className="mt-16 grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-14">
+      <div className="mt-16 grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] gap-14">
         {items.map((item, index) => (
           <NumberedItem
             key={item?.title ?? index}

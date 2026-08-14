@@ -114,7 +114,7 @@ export default async function ProjectPage({
           {template?.backLabel ?? '← All designs'}
         </Link>
 
-        <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-end gap-16 border-b-2 border-line-strong pb-8">
+        <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] items-end gap-16 border-b-2 border-line-strong pb-8">
           <div>
             <div className="font-mono text-lg tracking-[0.12em] tabular-nums text-text-accent">
               {twoDigit(position)}
@@ -151,7 +151,7 @@ export default async function ProjectPage({
         <ImageCaption caption={project.mainImage?.caption} />
 
         {secondaries.length ? (
-          <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
+          <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))] gap-6">
             {secondaries.map((figure, i) => (
               <div key={figure?.asset?._id ?? i}>
                 <div className="relative h-[320px] bg-surface-plate">
@@ -172,7 +172,7 @@ export default async function ProjectPage({
           frame. The design extended, not reinterpreted. */}
       {remainder.length ? (
         <section className="wrap pt-6">
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))] gap-6">
             {remainder.map((figure, i) => (
               <div key={figure?.asset?._id ?? i}>
                 <div className="relative h-[320px] rounded-none bg-surface-plate">
@@ -189,7 +189,7 @@ export default async function ProjectPage({
       ) : null}
 
       <section className="wrap pt-18">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-start gap-16">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] items-start gap-16">
           <div>
             {template?.commissionEyebrow ? (
               <Eyebrow>{template.commissionEyebrow}</Eyebrow>

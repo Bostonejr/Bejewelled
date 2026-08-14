@@ -19,6 +19,7 @@ studio/schema.json
 
 # source photography, 116 MB — uploaded to Sanity by scripts/seed-projects.mjs
 Project Images/
+screenshots/
 
 # tooling
 .DS_Store

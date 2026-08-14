@@ -160,7 +160,7 @@ export function EnquiryForm({
         <input id="enquiry-botcheck" name="botcheck" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-6">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-6">
         <Input
           id="enquiry-name"
           label="Full name"

@@ -79,7 +79,7 @@ export default async function ConstructionPage() {
             tone="inverse"
           />
 
-          <div className="mt-16 grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-8">
+          <div className="mt-16 grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-8">
             {stages.map((stage, index) => (
               <div
                 key={stage?.title ?? index}
@@ -142,7 +142,7 @@ export default async function ConstructionPage() {
 
       {capabilities.length ? (
         <section className="wrap pt-24">
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-start gap-16">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] items-start gap-16">
             <div>
               {data.capability?.eyebrow ? (
                 <Eyebrow>{data.capability.eyebrow}</Eyebrow>

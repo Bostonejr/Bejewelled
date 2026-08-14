@@ -443,14 +443,14 @@ const siteSettings = {
   ],
   nav: [
     {_key: 'nav-home', _type: 'linkItem', label: 'Home', href: '/'},
-    {_key: 'nav-services', _type: 'linkItem', label: 'Services', href: '/services'},
+    {_key: 'nav-designs', _type: 'linkItem', label: 'Designs', href: '/designs'},
     {
       _key: 'nav-construction',
       _type: 'linkItem',
       label: 'Construction',
       href: '/construction',
     },
-    {_key: 'nav-designs', _type: 'linkItem', label: 'Designs', href: '/designs'},
+    {_key: 'nav-services', _type: 'linkItem', label: 'Services', href: '/services'},
     {_key: 'nav-contact', _type: 'linkItem', label: 'Contact', href: '/contact'},
   ],
   footerStatement:
@@ -460,10 +460,12 @@ const siteSettings = {
       _key: 'fc-practice',
       _type: 'footerColumn',
       title: 'Practice',
+      // Same destinations as `nav` above and deliberately in the same order —
+      // the two are one navigation shown twice.
       items: [
-        {_key: 'fl-1', _type: 'linkItem', label: 'Services', href: '/services'},
-        {_key: 'fl-2', _type: 'linkItem', label: 'Construction', href: '/construction'},
         {_key: 'fl-3', _type: 'linkItem', label: 'Designs', href: '/designs'},
+        {_key: 'fl-2', _type: 'linkItem', label: 'Construction', href: '/construction'},
+        {_key: 'fl-1', _type: 'linkItem', label: 'Services', href: '/services'},
         {_key: 'fl-4', _type: 'linkItem', label: 'Contact', href: '/contact'},
       ],
     },

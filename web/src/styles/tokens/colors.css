@@ -1,11 +1,21 @@
 :root{
-/* --- Base ramp: gold (from the logo mark, #B88840) --- */
+/* --- Base ramp: gold (from the logo mark, #B88840) ---
+   500 and 600 sit fractionally below the mark's own gold, and deliberately.
+   Both carry load that has a contrast floor against --paper-100: 600 is
+   --text-accent, which sets the eyebrows, the mono field labels and the record
+   numbers at 11-12px, and needed 4.5:1 (was #9C7134, 3.96); 500 is
+   --line-accent, --focus-ring, --action-accent and the ghost button's rule,
+   all non-text UI, and needed 3:1 (was #B88840, 2.88). The corrections are
+   1.5% and 5% darker — under a just-noticeable difference side by side, and
+   the logo asset itself is untouched. --- */
 --gold-50:#FBF6EE;--gold-100:#F3E7D2;--gold-200:#E6CFA6;--gold-300:#D6B378;--gold-400:#C79B56;
---gold-500:#B88840;--gold-600:#9C7134;--gold-700:#7B592A;--gold-800:#5A4020;--gold-900:#3A2A15;
+--gold-500:#B3853E;--gold-600:#906930;--gold-700:#7B592A;--gold-800:#5A4020;--gold-900:#3A2A15;
 
-/* --- Base ramp: ink (wordmark charcoal, #181818) --- */
+/* --- Base ramp: ink (wordmark charcoal, #181818) ---
+   400 is --text-muted, which sets small copy on --paper-100 and so answers to
+   4.5:1. Was #75746C, 4.27; 2.5% darker clears it at 4.53. --- */
 --ink-900:#111111;--ink-800:#1A1A1A;--ink-700:#2A2A28;--ink-600:#3D3D3A;--ink-500:#55554F;
---ink-400:#75746C;--ink-300:#9A9890;--ink-200:#C2C0B7;--ink-100:#E0DDD4;--ink-50:#EFEDE6;
+--ink-400:#717068;--ink-300:#9A9890;--ink-200:#C2C0B7;--ink-100:#E0DDD4;--ink-50:#EFEDE6;
 
 /* --- Base ramp: paper (warm off-white ground, #F8F8F6) --- */
 --paper-000:#FFFFFF;--paper-050:#FBFAF7;--paper-100:#F6F4EF;--paper-200:#EFECE4;--paper-300:#E4E0D5;

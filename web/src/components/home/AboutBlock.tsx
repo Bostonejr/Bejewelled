@@ -22,7 +22,7 @@ export function AboutBlock({about}: {about: About}) {
 
   return (
     <section className="wrap pt-24">
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))] items-start gap-16">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] items-start gap-16">
         <div>
           {about.eyebrow ? <Eyebrow>{about.eyebrow}</Eyebrow> : null}
 

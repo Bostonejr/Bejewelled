@@ -34,7 +34,7 @@ export function SiteFooter({settings}: {settings: SiteSettings}) {
   return (
     <footer className="mt-32 bg-surface-inverse pt-24 pb-8 text-text-on-inverse">
       <div className="wrap">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-14 border-b border-line-inverse pb-14">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,220px),1fr))] gap-14 border-b border-line-inverse pb-14">
           <div>
             <Logo variant="lockup" on="dark" height={66} />
             <p className="type-body-sm mt-6 max-w-[34ch] text-text-on-inverse-muted">

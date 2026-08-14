@@ -58,7 +58,7 @@ export function SelectedWorks({
         </Link>
       </div>
 
-      <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
+      <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-6">
         {featured.map((project) => (
           <ProjectCard
             key={project._id}

@@ -44,7 +44,7 @@ export default async function ContactPage() {
       />
 
       <section className="wrap pt-14 pb-24">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))] items-start gap-16">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] items-start gap-16">
           <EnquiryForm
             intro={data.formIntro}
             serviceOptions={(data.serviceOptions ?? []).map(String)}

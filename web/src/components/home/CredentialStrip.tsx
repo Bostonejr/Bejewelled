@@ -14,7 +14,7 @@ export function CredentialStrip({items}: {items: string[]}) {
   return (
     <section className="bg-surface-inverse text-text-on-inverse">
       <div className="wrap">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,220px),1fr))]">
           {items.map((item, index) => (
             <div
               key={item}

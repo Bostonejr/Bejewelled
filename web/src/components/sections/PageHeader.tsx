@@ -27,7 +27,11 @@ export function PageHeader({
   return (
     <section className="wrap pt-18">
       <div className="flex flex-wrap items-end justify-between gap-10 border-b-2 border-line-strong pb-7">
-        <div>
+        {/* min-w-0: a flex item's automatic minimum is its min-content width,
+            which for an h1 is its longest word — "something." at --type-h1 is
+            wider than a 280px screen's text column, and the row overflowed
+            rather than letting the heading wrap. Inert above that width. */}
+        <div className="min-w-0">
           <Eyebrow>{eyebrow}</Eyebrow>
           <h1 className="type-h1 mt-4" style={{maxWidth: titleWidth}}>
             {title}

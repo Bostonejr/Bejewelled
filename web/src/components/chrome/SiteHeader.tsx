@@ -18,7 +18,15 @@ import {SiteNav} from './SiteNav'
  * readme quotes — the artefact wins (gap #10). The readme's scroll-condensed
  * state is dropped with it: the design has no such behaviour.
  *
- * Below 768px the nav, phone and button give way to the MobileMenu trigger.
+ * Below 1024px the nav, phone and button give way to the MobileMenu trigger.
+ * The design's own header is a plain justify-between row, which pushes the nav
+ * hard up against the lockup and leaves a wide gap before the phone number. The
+ * three-part row below keeps the lockup and the phone/button group at their
+ * natural widths and centres the nav in whatever is left, which is what the
+ * design's proportions read as. Gap #01 — the design is desktop-only, so the
+ * breakpoint is ours: 1024px, because the five nav labels plus the lockup and
+ * the action group do not fit inside the 56px gutters below that and the row
+ * wrapped to two lines.
  */
 export function SiteHeader({
   brandName,
@@ -31,14 +39,18 @@ export function SiteHeader({
 }) {
   return (
     <header className="sticky top-0 z-40 bg-paper-100 shadow-inset-rule">
-      <div className="wrap flex min-h-[76px] flex-wrap items-center justify-between gap-6 py-2">
-        <Link href="/" className="flex items-center" aria-label={`${brandName} — home`}>
+      <div className="wrap flex min-h-[76px] items-center gap-6 py-2">
+        <Link
+          href="/"
+          className="flex shrink-0 items-center"
+          aria-label={`${brandName} — home`}
+        >
           <Logo variant="lockup" height={48} priority />
         </Link>
 
         <SiteNav items={nav} />
 
-        <div className="ml-auto hidden items-center gap-5 md:flex">
+        <div className="ml-auto hidden shrink-0 items-center gap-5 lg:flex">
           {/* The design renders this as a <span>. A tel: link is identical at
               rest and saves a phone user transcribing the number by hand. */}
           <a

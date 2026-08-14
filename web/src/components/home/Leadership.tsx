@@ -26,7 +26,7 @@ export function Leadership({leadership}: {leadership: Leadership}) {
       <div
         className={
           hasPortrait
-            ? 'grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-start gap-16'
+            ? 'grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] items-start gap-16'
             : ''
         }
       >

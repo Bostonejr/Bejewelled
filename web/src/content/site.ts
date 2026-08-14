@@ -48,11 +48,15 @@ export const siteDefaults: SiteSettings = {
   tagline: 'Ideas well expressed!',
   railLabel: 'Bejewelled Enterprise · Kumasi, Ghana',
 
+  // Nav order is the client's, not the design's: Designs leads because the work
+  // is the argument. It is deliberately independent of the sheet numbers below,
+  // which stay in the design's route order — a sheet number is the drawing's
+  // own number, not its position in the menu.
   nav: [
     {label: 'Home', href: '/'},
-    {label: 'Services', href: '/services'},
-    {label: 'Construction', href: '/construction'},
     {label: 'Designs', href: '/designs'},
+    {label: 'Construction', href: '/construction'},
+    {label: 'Services', href: '/services'},
     {label: 'Contact', href: '/contact'},
   ],
 
@@ -77,11 +81,13 @@ export const siteDefaults: SiteSettings = {
 
   footerColumns: [
     {
+      // Same destinations as the header nav and deliberately in the same
+      // order — the two are one navigation shown twice.
       title: 'Practice',
       items: [
-        {label: 'Services', href: '/services'},
-        {label: 'Construction', href: '/construction'},
         {label: 'Designs', href: '/designs'},
+        {label: 'Construction', href: '/construction'},
+        {label: 'Services', href: '/services'},
         {label: 'Contact', href: '/contact'},
       ],
     },

@@ -25,13 +25,25 @@ const variants: Record<Variant, string> = {
     'bg-action-accent text-text-on-accent border-transparent hover:bg-action-accent-hover',
   secondary:
     'bg-transparent text-text-heading border-line-strong hover:bg-paper-200',
+  // Deviation from the bundle: ghost is `bd: 'transparent'` there, which leaves
+  // a transparent fill, a transparent border and gold text — visually a run of
+  // uppercase label copy, indistinguishable from the eyebrows sitting a few
+  // lines above it, with nothing to say it is pressable until the pointer is
+  // already on it. The rule is --line-accent, the same gold the nav's active
+  // item and the section rules use, so the affordance is the system's own
+  // device rather than a new one, and gold stays the only interactive colour.
   ghost:
-    'bg-transparent text-text-accent border-transparent hover:bg-gold-50',
+    'bg-transparent text-text-accent border-line-accent hover:bg-gold-50',
 }
 
+// The bundle sets `whiteSpace: 'nowrap'`, which is what pushed "Our
+// construction approach" 19px off the right edge of a 320px screen. Wrapping
+// is identical wherever there is room for the label — a w-auto inline-flex
+// still sizes to max-content — and only differs where nowrap would have
+// overflowed, so `text-center` carries the second line.
 const base = [
   'inline-flex items-center justify-center gap-[10px]',
-  'font-text font-medium tracking-wide uppercase whitespace-nowrap',
+  'font-text font-medium tracking-wide uppercase text-center',
   'rounded-md border border-solid',
   'cursor-pointer transition-control',
   'active:translate-y-px', // press: down 1px. No scale, no ripple.

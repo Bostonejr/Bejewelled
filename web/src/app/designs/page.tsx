@@ -99,7 +99,7 @@ export default async function DesignsPage({
             No projects in this sector yet.
           </p>
         ) : activeView === 'plates' ? (
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-6">
             {shown.map((project) => (
               <ProjectCard
                 key={project._id}

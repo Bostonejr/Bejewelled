@@ -19,7 +19,7 @@ import type {SiteSettings} from '@/content/site'
 export function CtaBand({ctaBand}: {ctaBand: SiteSettings['ctaBand']}) {
   return (
     <section className="wrap pt-24">
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] items-center gap-10 border-t-2 border-line-strong py-14">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))] items-center gap-10 border-t-2 border-line-strong py-14">
         <div>
           <h2 className="type-h2">{ctaBand.heading}</h2>
           <p className="type-body mt-[14px] text-text-muted">{ctaBand.body}</p>
