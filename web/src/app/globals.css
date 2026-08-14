@@ -364,3 +364,26 @@ svg {
   display: block;
   max-width: 100%;
 }
+
+/* The non-JavaScript half of the image deterrent — see
+   components/ImageProtection.tsx for what this is and is not worth.
+
+   `-webkit-touch-callout` is the load-bearing one: iOS Safari's long-press
+   "Save Image / Copy" sheet is not a contextmenu event, so the listener in
+   that component never sees it and this property is the only thing that
+   suppresses it. `-webkit-user-drag` covers Safari and older WebKit, where
+   `dragstart` on an image is not cancellable the way it is elsewhere.
+   `user-select` keeps an image out of a select-all-and-copy.
+
+   Deliberately not `pointer-events: none`: it would take the right-click
+   target off the image, but it also stops the plate buttons and the lightbox
+   from ever seeing a click on the picture itself. */
+img {
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  /* Written out rather than left to the prefixer: Safari only accepted
+     `user-select` unprefixed from 17, and the phones this site is actually
+     read on in Kumasi are not all on 17. */
+  -webkit-user-select: none;
+  user-select: none;
+}

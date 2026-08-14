@@ -4,6 +4,7 @@ import {Archivo, IBM_Plex_Mono, Marcellus} from 'next/font/google'
 import {VisualEditing} from 'next-sanity/visual-editing'
 
 import {SheetRail, SiteFooter, SiteHeader} from '@/components/chrome'
+import {ImageProtection} from '@/components/ImageProtection'
 import {StructuredData} from '@/components/StructuredData'
 import {SanityLive} from '@/sanity/live'
 import {getSiteSettings} from '@/sanity/settings'
@@ -87,6 +88,9 @@ export default async function RootLayout({
         </div>
 
         <StructuredData settings={settings} />
+        {/* Blocks right-click, drag-off and the mobile long-press sheet on
+            photographs. A deterrent, not protection — see the component. */}
+        <ImageProtection />
         <SanityLive />
         {/* Click-to-edit overlays, only ever mounted inside the Studio's
             Presentation tool. Never shipped to a visitor. */}

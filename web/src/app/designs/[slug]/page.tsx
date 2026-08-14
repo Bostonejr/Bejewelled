@@ -3,7 +3,7 @@ import {notFound} from 'next/navigation'
 import {PortableText} from '@portabletext/react'
 
 import {Eyebrow} from '@/components/ds'
-import {ImageCaption, SanityImage} from '@/components/SanityImage'
+import {ProjectPlates} from '@/components/project/ProjectPlates'
 import {twoDigit} from '@/lib/numbering'
 import {client} from '@/sanity/client'
 import {sanityFetch} from '@/sanity/live'
@@ -89,9 +89,9 @@ export default async function ProjectPage({
   const previous = hasSiblings ? order[previousIndex] : null
   const next = hasSiblings ? order[nextIndex] : null
 
+  // ProjectPlates owns the split into primary / secondaries / remainder, since
+  // it also has to number them as one ordered set for the expanded view.
   const gallery = project.gallery ?? []
-  const secondaries = gallery.slice(0, 2)
-  const remainder = gallery.slice(2)
 
   // The four-cell record strip. A cell with no value is dropped rather than
   // printed empty — an unfinished draft shows three cells, not a blank one.
@@ -140,53 +140,7 @@ export default async function ProjectPage({
         </section>
       ) : null}
 
-      <section className="wrap pt-14">
-        <div className="relative h-[560px] bg-surface-plate">
-          <SanityImage
-            image={project.mainImage}
-            priority
-            sizes="(max-width: 1240px) 100vw, 1128px"
-          />
-        </div>
-        <ImageCaption caption={project.mainImage?.caption} />
-
-        {secondaries.length ? (
-          <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))] gap-6">
-            {secondaries.map((figure, i) => (
-              <div key={figure?.asset?._id ?? i}>
-                <div className="relative h-[320px] bg-surface-plate">
-                  <SanityImage
-                    image={figure}
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-                <ImageCaption caption={figure?.caption} />
-              </div>
-            ))}
-          </div>
-        ) : null}
-      </section>
-
-      {/* Gap #06 — the folder usually holds more than the design has slots for.
-          Same plate ground, same square corners, same mono caption below the
-          frame. The design extended, not reinterpreted. */}
-      {remainder.length ? (
-        <section className="wrap pt-6">
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))] gap-6">
-            {remainder.map((figure, i) => (
-              <div key={figure?.asset?._id ?? i}>
-                <div className="relative h-[320px] rounded-none bg-surface-plate">
-                  <SanityImage
-                    image={figure}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1240px) 50vw, 360px"
-                  />
-                </div>
-                <ImageCaption caption={figure?.caption} />
-              </div>
-            ))}
-          </div>
-        </section>
-      ) : null}
+      <ProjectPlates mainImage={project.mainImage} gallery={gallery} />
 
       <section className="wrap pt-18">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] items-start gap-16">
