@@ -99,6 +99,9 @@ const homePage = {
     name: 'Rosemary Dwamena',
     roleLine: 'Architect, AGIA · Principal Architect',
     bio: 'Rosemary Dwamena is a registered Architect with over twenty years of experience in architectural design, project management and construction supervision. She leads every commission the practice undertakes, from the first design conversation through to handover.',
+    // Seeded off, like the two credential switches in Site settings. The rows
+    // are seeded all the same so turning the switch on needs no re-typing.
+    showCredentials: false,
     credentials: [
       {
         _key: 'c-1',
@@ -433,8 +436,12 @@ const siteSettings = {
   phones: ['0244 037 166', '0274 271 421'],
   addressLines: ['Plot 41A, Block J, Apire,', 'Kumasi, Ghana'],
   digitalAddress: 'AK-361-7399',
+  // Both credential switches seed off; the copy seeds all the same, so turning
+  // either on in Site settings restores the design's wording untouched.
+  showRegistrationLine: false,
   registrationLine:
     'Registered 2013 · BN433602013 · Ministry of Works and Housing K3, D3',
+  showCredentialStrip: false,
   credentialStrip: [
     'Registered 2013 · BN433602013',
     'Ministry of Works & Housing K3, D3',

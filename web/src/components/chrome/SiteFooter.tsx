@@ -18,6 +18,11 @@ import type {SiteSettings} from '@/content/site'
  * gives them no hover state, which leaves a column of links with no pointer
  * feedback; this reuses the colour already in the column rather than adding
  * one.
+ *
+ * Gap #20: the registration line on the right of the bottom row is behind
+ * `showRegistrationLine`, off by default. Dropped, the row's justify-between
+ * leaves the copyright alone on the left, which is where the design already
+ * puts it — no layout of its own is needed for the switched-off state.
  */
 export function SiteFooter({settings}: {settings: SiteSettings}) {
   const {
@@ -28,6 +33,7 @@ export function SiteFooter({settings}: {settings: SiteSettings}) {
     addressLines,
     digitalAddress,
     phones,
+    showRegistrationLine,
     registrationLine,
   } = settings
 
@@ -87,7 +93,7 @@ export function SiteFooter({settings}: {settings: SiteSettings}) {
           <span>
             © {new Date().getFullYear()} {legalName}. All rights reserved.
           </span>
-          <span>{registrationLine}</span>
+          {showRegistrationLine ? <span>{registrationLine}</span> : null}
         </div>
       </div>
     </footer>

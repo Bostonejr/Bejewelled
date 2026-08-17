@@ -54,7 +54,9 @@ export const SITE_SETTINGS_QUERY = defineQuery(`
     phones,
     addressLines,
     digitalAddress,
+    showRegistrationLine,
     registrationLine,
+    showCredentialStrip,
     credentialStrip,
     nav[]{label, href},
     footerStatement,
@@ -101,6 +103,7 @@ export const HOME_PAGE_QUERY = defineQuery(`
       roleLine,
       bio,
       portrait ${IMAGE},
+      showCredentials,
       credentials[]{label, value}
     },
     seo{title, description, noIndex, image ${IMAGE}},

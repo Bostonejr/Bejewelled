@@ -29,7 +29,11 @@ export type SiteSettings = {
   phones: string[]
   addressLines: string[]
   digitalAddress: string
+  /** Whether the registration line prints at the foot of every page. */
+  showRegistrationLine: boolean
   registrationLine: string
+  /** Whether the ink band under the hero on Home renders at all. */
+  showCredentialStrip: boolean
   /** The ink band of registrations under the hero on Home. */
   credentialStrip: string[]
   footerStatement: string
@@ -63,12 +67,20 @@ export const siteDefaults: SiteSettings = {
   phones: ['0244 037 166', '0274 271 421'],
   addressLines: ['Plot 41A, Block J, Apire,', 'Kumasi, Ghana'],
   digitalAddress: 'AK-361-7399',
+
+  // The two credential switches default off, and so do their counterparts in
+  // the Studio schema. The practice asked for the claims to be held back until
+  // they are ready to stand behind them in public; the copy below is kept
+  // verbatim so flipping either switch in Site settings restores the design's
+  // own wording with no re-typing.
+  showRegistrationLine: false,
   registrationLine:
     'Registered 2013 · BN433602013 · Ministry of Works and Housing K3, D3',
 
   // Transcribed verbatim: the strip uses "Works & Housing" while the footer
   // registration line above uses "Works and Housing". That is the design file,
   // not a slip in the transcription.
+  showCredentialStrip: false,
   credentialStrip: [
     'Registered 2013 · BN433602013',
     'Ministry of Works & Housing K3, D3',

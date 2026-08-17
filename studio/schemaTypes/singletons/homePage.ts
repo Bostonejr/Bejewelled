@@ -280,6 +280,14 @@ export const homePage = defineType({
           ],
         }),
         defineField({
+          name: 'showCredentials',
+          type: 'boolean',
+          title: 'Show the credential rows',
+          initialValue: false,
+          description:
+            'Off hides the hairline rows under the biography. The rows below are kept either way, so turning it back on restores them unchanged.',
+        }),
+        defineField({
           name: 'credentials',
           type: 'array',
           title: 'Credentials',

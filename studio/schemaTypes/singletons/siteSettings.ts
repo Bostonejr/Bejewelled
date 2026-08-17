@@ -90,12 +90,30 @@ export const siteSettings = defineType({
       validation: (rule) => rule.required().max(20),
     }),
     defineField({
+      name: 'showRegistrationLine',
+      title: 'Show the registration line',
+      type: 'boolean',
+      group: 'contact',
+      initialValue: false,
+      description:
+        'Off hides the registration line from the bottom of the footer sitewide. The wording below is kept either way, so turning it back on restores it unchanged.',
+    }),
+    defineField({
       name: 'registrationLine',
       title: 'Registration line',
       type: 'string',
       group: 'contact',
       description: `Printed along the bottom of the footer. Registration number, year, and Ministry of Works and Housing classification. ${COPY}`,
       validation: (rule) => rule.required().max(160),
+    }),
+    defineField({
+      name: 'showCredentialStrip',
+      title: 'Show the credential strip',
+      type: 'boolean',
+      group: 'contact',
+      initialValue: false,
+      description:
+        'Off hides the ink band of credentials under the hero on Home. The claims below are kept either way, so turning it back on restores the strip unchanged.',
     }),
     defineField({
       name: 'credentialStrip',

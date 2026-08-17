@@ -313,6 +313,8 @@ These are the places where the design, your brief, and reality don't line up. Ea
 
 13. **Two names, two contexts.** "Bejewelled" in nav, marketing, and titles; "Bejewelled Enterprise" in the copyright line, the registration strip, and the project record line. Both live in `siteSettings` so the distinction can't be lost in an edit.
 
+20. **The design prints the credentials in three places; the practice wants them held back for now.** The ink strip under the hero, the credential rows under the biography, and the registration line at the foot of every page. Rather than delete three pieces of the design — which would mean re-typing the claims to restore them — each is put behind its own switch: `siteSettings.showCredentialStrip`, `siteSettings.showRegistrationLine`, `homePage.leadership.showCredentials`. All three default **off**, in the schema, in `siteDefaults`, and in the seed script, so an unset or unseeded field hides the claims rather than publishing ones nobody turned on. The copy stays in place either way; turning a switch on in the Studio restores the design's own wording untouched. Each switch sits directly above the field it governs, and none of the content fields were made optional — the claims are still validated, just not printed.
+
 ### Needs your decision
 
 14. **Sanity project.** None exists yet. I'll create one via the Sanity MCP — I need to know which organisation, or whether you already have a project ID to reuse.

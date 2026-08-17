@@ -7,6 +7,11 @@
  *
  * The first cell carries no left divider and no left padding so the row starts
  * flush with the column — the same rule StatBlock follows.
+ *
+ * Gap #20: whether this section renders at all is `siteSettings.
+ * showCredentialStrip`, decided by the caller in `app/page.tsx`. The switch
+ * defaults off, so the strip is absent from Home until the practice turns it
+ * on. This component stays unaware of it — given items, it draws them.
  */
 export function CredentialStrip({items}: {items: string[]}) {
   if (!items.length) return null

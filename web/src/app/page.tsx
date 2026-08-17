@@ -49,7 +49,9 @@ export default async function HomePage() {
     <>
       {data.hero ? <Hero hero={data.hero} /> : null}
 
-      <CredentialStrip items={settings.credentialStrip} />
+      {settings.showCredentialStrip ? (
+        <CredentialStrip items={settings.credentialStrip} />
+      ) : null}
 
       {data.about ? <AboutBlock about={data.about} /> : null}
 

@@ -36,7 +36,13 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     phones: list(data.phones, siteDefaults.phones),
     addressLines: list(data.addressLines, siteDefaults.addressLines),
     digitalAddress: data.digitalAddress ?? siteDefaults.digitalAddress,
+    // The two credential switches are the one pair of fields where an absent
+    // value must not fall back to "render it". They default off in the schema
+    // and off here, so an unseeded or older singleton hides the credentials
+    // rather than publishing claims nobody has turned on.
+    showRegistrationLine: data.showRegistrationLine ?? siteDefaults.showRegistrationLine,
     registrationLine: data.registrationLine ?? siteDefaults.registrationLine,
+    showCredentialStrip: data.showCredentialStrip ?? siteDefaults.showCredentialStrip,
     credentialStrip: list(data.credentialStrip, siteDefaults.credentialStrip),
 
     footerStatement: data.footerStatement ?? siteDefaults.footerStatement,

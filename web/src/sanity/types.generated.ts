@@ -284,6 +284,7 @@ export type HomePage = {
       alt?: string;
       _type: "image";
     };
+    showCredentials?: boolean;
     credentials?: Array<
       {
         _key: string;
@@ -306,7 +307,9 @@ export type SiteSettings = {
   phones?: Array<string>;
   addressLines?: Array<string>;
   digitalAddress?: string;
+  showRegistrationLine?: boolean;
   registrationLine?: string;
+  showCredentialStrip?: boolean;
   credentialStrip?: Array<string>;
   nav?: Array<
     {
@@ -611,7 +614,7 @@ export type AllSanitySchemaTypes =
 
 // Source: ../web/src/sanity/queries.ts
 // Variable: SITE_SETTINGS_QUERY
-// Query: *[_id == "siteSettings"][0]{    brandName,    legalName,    tagline,    railLabel,    phones,    addressLines,    digitalAddress,    registrationLine,    credentialStrip,    nav[]{label, href},    footerStatement,    footerColumns[]{title, items[]{label, href}},    officeColumnTitle,    ctaBand{heading, body, button{label, href}},    defaultSeo{title, description, noIndex, image {  alt,  caption,  hotspot,  crop,  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}}},    ogImage {  alt,  caption,  hotspot,  crop,  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}},    socialLinks[]{label, href}  }
+// Query: *[_id == "siteSettings"][0]{    brandName,    legalName,    tagline,    railLabel,    phones,    addressLines,    digitalAddress,    showRegistrationLine,    registrationLine,    showCredentialStrip,    credentialStrip,    nav[]{label, href},    footerStatement,    footerColumns[]{title, items[]{label, href}},    officeColumnTitle,    ctaBand{heading, body, button{label, href}},    defaultSeo{title, description, noIndex, image {  alt,  caption,  hotspot,  crop,  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}}},    ogImage {  alt,  caption,  hotspot,  crop,  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}},    socialLinks[]{label, href}  }
 export type SITE_SETTINGS_QUERY_RESULT =
   | {
       brandName: null;
@@ -621,7 +624,9 @@ export type SITE_SETTINGS_QUERY_RESULT =
       phones: null;
       addressLines: null;
       digitalAddress: null;
+      showRegistrationLine: null;
       registrationLine: null;
+      showCredentialStrip: null;
       credentialStrip: null;
       nav: null;
       footerStatement: null;
@@ -640,7 +645,9 @@ export type SITE_SETTINGS_QUERY_RESULT =
       phones: Array<string> | null;
       addressLines: Array<string> | null;
       digitalAddress: string | null;
+      showRegistrationLine: boolean | null;
       registrationLine: string | null;
+      showCredentialStrip: boolean | null;
       credentialStrip: Array<string> | null;
       nav: Array<{
         label: string | null;
@@ -711,7 +718,7 @@ export type SITE_SETTINGS_QUERY_RESULT =
 
 // Source: ../web/src/sanity/queries.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_id == "homePage"][0]{    hero{eyebrow, title, body, ctas[]{label, href}, image {  alt,  caption,  hotspot,  crop,  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}}},    about{      eyebrow,      statement,      body,      cta{label, href},      recordLabel,      stats[]{value, label}    },    disciplines{      eyebrow,      title,      intro,      items[]{title, body},      cta{label, href},      secondaryLink{label, href}    },    works{      eyebrow,      title,      linkLabel,      "featured": select(        count(featuredProjects) > 0 => featuredProjects[]->{  _id,  "slug": slug.current,  "client": coalesce(client, title),  scopeOfWorks,  location,  status,  "sector": sector->title,  mainImage {  alt,  caption,  hotspot,  crop,  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}}},        *[_type == "project" && defined(slug.current)] | order(orderRank asc)[0...3]{  _id,  "slug": slug.current,  "client": coalesce(client, title),  scopeOfWorks,  location,  status,  "sector": sector->title,  mainImage {  alt,  caption,  hotspot,  crop,  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}}}      )    },    leadership{      eyebrow,      name,      roleLine,      bio,      portrait {  alt,  caption,  hotspot,  crop,  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}},      credentials[]{label, value}    },    seo{title, description, noIndex, image {  alt,  caption,  hotspot,  crop,  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}}},    "projectOrder": *[_type == "project" && defined(slug.current)] | order(orderRank asc)._id  }
+// Query: *[_id == "homePage"][0]{    hero{eyebrow, title, body, ctas[]{label, href}, image {  alt,  caption,  hotspot,  crop,  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}}},    about{      eyebrow,      statement,      body,      cta{label, href},      recordLabel,      stats[]{value, label}    },    disciplines{      eyebrow,      title,      intro,      items[]{title, body},      cta{label, href},      secondaryLink{label, href}    },    works{      eyebrow,      title,      linkLabel,      "featured": select(        count(featuredProjects) > 0 => featuredProjects[]->{  _id,  "slug": slug.current,  "client": coalesce(client, title),  scopeOfWorks,  location,  status,  "sector": sector->title,  mainImage {  alt,  caption,  hotspot,  crop,  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}}},        *[_type == "project" && defined(slug.current)] | order(orderRank asc)[0...3]{  _id,  "slug": slug.current,  "client": coalesce(client, title),  scopeOfWorks,  location,  status,  "sector": sector->title,  mainImage {  alt,  caption,  hotspot,  crop,  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}}}      )    },    leadership{      eyebrow,      name,      roleLine,      bio,      portrait {  alt,  caption,  hotspot,  crop,  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}},      showCredentials,      credentials[]{label, value}    },    seo{title, description, noIndex, image {  alt,  caption,  hotspot,  crop,  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}}},    "projectOrder": *[_type == "project" && defined(slug.current)] | order(orderRank asc)._id  }
 export type HOME_PAGE_QUERY_RESULT =
   | {
       hero: null;
@@ -863,6 +870,7 @@ export type HOME_PAGE_QUERY_RESULT =
             } | null;
           } | null;
         } | null;
+        showCredentials: boolean | null;
         credentials: Array<{
           label: string | null;
           value: string | null;
@@ -1827,8 +1835,8 @@ export type CONSTRUCTION_PAGE_QUERY_RESULT =
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_id == "siteSettings"][0]{\n    brandName,\n    legalName,\n    tagline,\n    railLabel,\n    phones,\n    addressLines,\n    digitalAddress,\n    registrationLine,\n    credentialStrip,\n    nav[]{label, href},\n    footerStatement,\n    footerColumns[]{title, items[]{label, href}},\n    officeColumnTitle,\n    ctaBand{heading, body, button{label, href}},\n    defaultSeo{title, description, noIndex, image {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n}},\n    ogImage {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n},\n    socialLinks[]{label, href}\n  }\n': SITE_SETTINGS_QUERY_RESULT;
-    '\n  *[_id == "homePage"][0]{\n    hero{eyebrow, title, body, ctas[]{label, href}, image {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n}},\n    about{\n      eyebrow,\n      statement,\n      body,\n      cta{label, href},\n      recordLabel,\n      stats[]{value, label}\n    },\n    disciplines{\n      eyebrow,\n      title,\n      intro,\n      items[]{title, body},\n      cta{label, href},\n      secondaryLink{label, href}\n    },\n    works{\n      eyebrow,\n      title,\n      linkLabel,\n      "featured": select(\n        count(featuredProjects) > 0 => featuredProjects[]->{\n  _id,\n  "slug": slug.current,\n  "client": coalesce(client, title),\n  scopeOfWorks,\n  location,\n  status,\n  "sector": sector->title,\n  mainImage {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n}\n},\n        *[_type == "project" && defined(slug.current)] | order(orderRank asc)[0...3]{\n  _id,\n  "slug": slug.current,\n  "client": coalesce(client, title),\n  scopeOfWorks,\n  location,\n  status,\n  "sector": sector->title,\n  mainImage {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n}\n}\n      )\n    },\n    leadership{\n      eyebrow,\n      name,\n      roleLine,\n      bio,\n      portrait {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n},\n      credentials[]{label, value}\n    },\n    seo{title, description, noIndex, image {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n}},\n    "projectOrder": *[_type == "project" && defined(slug.current)] | order(orderRank asc)._id\n  }\n': HOME_PAGE_QUERY_RESULT;
+    '\n  *[_id == "siteSettings"][0]{\n    brandName,\n    legalName,\n    tagline,\n    railLabel,\n    phones,\n    addressLines,\n    digitalAddress,\n    showRegistrationLine,\n    registrationLine,\n    showCredentialStrip,\n    credentialStrip,\n    nav[]{label, href},\n    footerStatement,\n    footerColumns[]{title, items[]{label, href}},\n    officeColumnTitle,\n    ctaBand{heading, body, button{label, href}},\n    defaultSeo{title, description, noIndex, image {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n}},\n    ogImage {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n},\n    socialLinks[]{label, href}\n  }\n': SITE_SETTINGS_QUERY_RESULT;
+    '\n  *[_id == "homePage"][0]{\n    hero{eyebrow, title, body, ctas[]{label, href}, image {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n}},\n    about{\n      eyebrow,\n      statement,\n      body,\n      cta{label, href},\n      recordLabel,\n      stats[]{value, label}\n    },\n    disciplines{\n      eyebrow,\n      title,\n      intro,\n      items[]{title, body},\n      cta{label, href},\n      secondaryLink{label, href}\n    },\n    works{\n      eyebrow,\n      title,\n      linkLabel,\n      "featured": select(\n        count(featuredProjects) > 0 => featuredProjects[]->{\n  _id,\n  "slug": slug.current,\n  "client": coalesce(client, title),\n  scopeOfWorks,\n  location,\n  status,\n  "sector": sector->title,\n  mainImage {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n}\n},\n        *[_type == "project" && defined(slug.current)] | order(orderRank asc)[0...3]{\n  _id,\n  "slug": slug.current,\n  "client": coalesce(client, title),\n  scopeOfWorks,\n  location,\n  status,\n  "sector": sector->title,\n  mainImage {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n}\n}\n      )\n    },\n    leadership{\n      eyebrow,\n      name,\n      roleLine,\n      bio,\n      portrait {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n},\n      showCredentials,\n      credentials[]{label, value}\n    },\n    seo{title, description, noIndex, image {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n}},\n    "projectOrder": *[_type == "project" && defined(slug.current)] | order(orderRank asc)._id\n  }\n': HOME_PAGE_QUERY_RESULT;
     '\n  *[_id == "servicesPage"][0]{\n    eyebrow,\n    title,\n    intro,\n    services[]{title, tag, description, items},\n    constructionBand{eyebrow, title, body, cta{label, href}},\n    sectorsBlock{eyebrow, title, items[]{title, body}},\n    seo{title, description, noIndex, image {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n}}\n  }\n': SERVICES_PAGE_QUERY_RESULT;
     '\n  *[_id == "contactPage"][0]{\n    eyebrow,\n    title,\n    formIntro,\n    serviceOptions,\n    phoneNote,\n    successHeading,\n    successBody,\n    successButtonLabel,\n    contactFields[]{label, value},\n    mapImage {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n},\n    seo{title, description, noIndex, image {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n}}\n  }\n': CONTACT_PAGE_QUERY_RESULT;
     '\n  {\n    "page": *[_id == "designsPage"][0]{\n      eyebrow,\n      title,\n      intro,\n      allFilterLabel,\n      defaultView,\n      seo{title, description, noIndex, image {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n}}\n    },\n    "sectors": *[_type == "sector"] | order(orderRank asc){\n      title,\n      "slug": slug.current\n    },\n    "projects": *[_type == "project" && defined(slug.current)] | order(orderRank asc){\n      ...{\n  _id,\n  "slug": slug.current,\n  "client": coalesce(client, title),\n  scopeOfWorks,\n  location,\n  status,\n  "sector": sector->title,\n  mainImage {\n  alt,\n  caption,\n  hotspot,\n  crop,\n  asset->{_id, metadata{lqip, dimensions{width, height, aspectRatio}}}\n}\n},\n      "sectorSlug": sector->slug.current\n    }\n  }\n': DESIGNS_PAGE_QUERY_RESULT;

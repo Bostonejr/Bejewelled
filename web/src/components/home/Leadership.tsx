@@ -16,10 +16,16 @@ type Leadership = NonNullable<NonNullable<HOME_PAGE_QUERY_RESULT>['leadership']>
  * Gap #17: there is no substitute for a portrait of a specific person, so when
  * one has not been supplied the section renders as a single full-width text
  * column rather than showing an empty blue plate where a face should be.
+ *
+ * Gap #20: the credential rows are behind `leadership.showCredentials`, off by
+ * default. Switched off the section is the biography alone; the rows and their
+ * hairlines are kept in the Studio, so switching it on restores them unchanged.
  */
 export function Leadership({leadership}: {leadership: Leadership}) {
   const hasPortrait = Boolean(leadership.portrait?.asset)
-  const credentials = leadership.credentials ?? []
+  // The credential rows are switched off by default in the schema, so an unset
+  // flag hides them rather than printing claims nobody has turned on.
+  const credentials = leadership.showCredentials ? (leadership.credentials ?? []) : []
 
   return (
     <section className="wrap pt-24">
