@@ -33,3 +33,14 @@
   # RESEND_API_KEY stay scanned, which is the point: if either ever leaks into
   # the bundle, the build should fail loudly.
   SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SANITY_PROJECT_ID,NEXT_PUBLIC_SANITY_DATASET,NEXT_PUBLIC_SANITY_API_VERSION,NEXT_PUBLIC_SITE_URL,NEXT_PUBLIC_GA_ID"
+
+  # Turbopack's persistent build cache records the values of the env vars it
+  # compiled against, so both real secrets turn up in .next/cache/turbopack/
+  # *.sst files. Verified locally: they appear in 10 cache files and in **zero**
+  # client-static or server chunks — nothing a browser can reach.
+  #
+  # Paths are relative to the repo root and match on substring, so the first
+  # entry also covers the runtime's .netlify/.next/cache copy. This is scoped
+  # to the cache on purpose: omitting the two KEYS instead would silence the
+  # scanner everywhere and throw away the protection worth having.
+  SECRETS_SCAN_OMIT_PATHS = ".next/cache,.netlify/.next/cache"
