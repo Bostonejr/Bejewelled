@@ -19,8 +19,18 @@ type Seo =
  *
  * The fallback chain matters more than it looks: an editor who never opens the
  * "Search & social" tab still gets a sensible title and description, drawn from
- * copy they did write. Only the sharing image has no fallback here — the
- * layout's metadataBase supplies the site default.
+ * copy they did write.
+ *
+ * The sharing image falls back to `app/opengraph-image.png` — the brand lockup
+ * on an ink plate — and that fallback has to be applied *here*, not inherited.
+ * Next treats `openGraph` as a unit: a page that returns one replaces the root
+ * layout's outright rather than merging field by field, and Next's
+ * `opengraph-image` file convention only covers `/`. Both were tried; both
+ * left every route except the home page with no `og:image` at all, project
+ * pages included — and those are the ones that get pasted into WhatsApp.
+ *
+ * So every page gets an explicit absolute image, and a page that sets its own
+ * in the Studio's "Search & social" tab overrides it.
  *
  * Descriptions are trimmed to 200 characters at a word boundary. A page
  * introduction is written to be read on the page, not in a search result, and
@@ -46,7 +56,7 @@ export function buildMetadata({
 
   const ogImage = seo?.image?.asset
     ? urlFor(seo.image).width(1200).height(630).fit('crop').url()
-    : undefined
+    : new URL('/opengraph-image.png', siteUrl).toString()
 
   return {
     title: absoluteTitle ? {absolute: title} : title,
@@ -58,7 +68,7 @@ export function buildMetadata({
       url,
       title,
       description: description || undefined,
-      images: ogImage ? [{url: ogImage, width: 1200, height: 630}] : undefined,
+      images: [{url: ogImage, width: 1200, height: 630}],
     },
   }
 }

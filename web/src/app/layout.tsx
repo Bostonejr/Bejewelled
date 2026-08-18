@@ -50,6 +50,22 @@ export const metadata: Metadata = {
   },
   description:
     'Bejewelled is a Ghanaian architectural, engineering and construction practice based in Kumasi, delivering a wholistic service from first design conversation to post-contract close-out.',
+
+  /**
+   * Without this the card renders as a small square thumbnail beside the text.
+   * The sharing image is the 1200×630 `opengraph-image.png` alongside this
+   * file — a wide image in a `summary` card is letterboxed to a postage stamp,
+   * which is how the link previewed before.
+   *
+   * The images themselves come from Next's file conventions in this directory:
+   * `icon.png` and `apple-icon.png` (the JB monogram on an ink plate) and
+   * `opengraph-image.png` (the full lockup). Both are generated from
+   * `public/brand/` rather than drawn by hand, so they cannot drift from the
+   * marks the site itself renders.
+   */
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 export default async function RootLayout({
