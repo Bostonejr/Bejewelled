@@ -2,17 +2,22 @@
 #
 # The Next app lives in web/, which has its own package.json and lockfile —
 # this repo has no npm workspaces (see CLAUDE.md) — so `base` points Netlify
-# there and both the install and the build run inside it. `publish` is
-# relative to `base`, so this is web/.next.
+# there and both the install and the build run inside it.
 #
-# There is deliberately no [[plugins]] entry: Netlify installs and auto-updates
-# the OpenNext-based Next.js runtime itself, and pinning it is discouraged —
-# pinned sites miss the adapter releases that add support for new Next
-# versions.
+# There is deliberately NO `publish` key. Setting it (to `.next`, the obvious
+# guess) makes Netlify treat the output as a plain static directory and skip
+# the Next.js runtime entirely: the first deploy here uploaded 328 files and
+# *zero* functions, served `.next` raw — /BUILD_ID answered 200 while / gave a
+# 404. The OpenNext adapter sets the publish directory itself, along with the
+# functions for SSR and the API routes, the edge functions, and image
+# optimisation. Leave it alone.
+#
+# There is also no [[plugins]] entry: Netlify installs and auto-updates the
+# runtime itself, and pinning it is discouraged — pinned sites miss the adapter
+# releases that add support for new Next versions.
 [build]
   base = "web"
   command = "npm run build"
-  publish = ".next"
 
 [build.environment]
   # Netlify's secret scanner fails a build when it finds the value of any
