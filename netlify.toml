@@ -4,20 +4,24 @@
 # this repo has no npm workspaces (see CLAUDE.md) — so `base` points Netlify
 # there and both the install and the build run inside it.
 #
-# There is deliberately NO `publish` key. Setting it (to `.next`, the obvious
-# guess) makes Netlify treat the output as a plain static directory and skip
-# the Next.js runtime entirely: the first deploy here uploaded 328 files and
-# *zero* functions, served `.next` raw — /BUILD_ID answered 200 while / gave a
-# 404. The OpenNext adapter sets the publish directory itself, along with the
-# functions for SSR and the API routes, the edge functions, and image
-# optimisation. Leave it alone.
+# `publish` is resolved relative to `base`, so this is web/.next.
 #
-# There is also no [[plugins]] entry: Netlify installs and auto-updates the
-# runtime itself, and pinning it is discouraged — pinned sites miss the adapter
-# releases that add support for new Next versions.
+# It must be set and it must not equal `base`. Left unset it *defaults* to the
+# base directory, and the Next.js runtime rejects that outright: "Your publish
+# directory cannot be the same as the base directory of your site."
+#
+# The Netlify UI cannot express this on its own — its Publish directory input
+# renders `web/` as a fixed prefix, so clearing the field yields `web`, which
+# is exactly the rejected case. Setting it here overrides the UI.
+#
+# There is no [[plugins]] entry: the Next.js Runtime is attached to the project
+# in the Netlify UI (Build settings → Runtime), which keeps it on auto-updates.
+# It is NOT installed automatically for a project that was first created as a
+# static site — that has to be selected by hand, once.
 [build]
   base = "web"
   command = "npm run build"
+  publish = ".next"
 
 [build.environment]
   # Netlify's secret scanner fails a build when it finds the value of any
