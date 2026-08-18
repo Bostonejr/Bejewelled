@@ -1,0 +1,26 @@
+# Netlify build configuration.
+#
+# The Next app lives in web/, which has its own package.json and lockfile —
+# this repo has no npm workspaces (see CLAUDE.md) — so `base` points Netlify
+# there and both the install and the build run inside it. `publish` is
+# relative to `base`, so this is web/.next.
+#
+# There is deliberately no [[plugins]] entry: Netlify installs and auto-updates
+# the OpenNext-based Next.js runtime itself, and pinning it is discouraged —
+# pinned sites miss the adapter releases that add support for new Next
+# versions.
+[build]
+  base = "web"
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # Netlify's secret scanner fails a build when it finds the value of any
+  # environment variable in the build output. Every NEXT_PUBLIC_* value is
+  # *meant* to be in the client bundle — that is what the prefix declares — so
+  # left unqualified the scanner fails this deploy every single time.
+  #
+  # Only the five public keys are exempted here. SANITY_API_READ_TOKEN and
+  # RESEND_API_KEY stay scanned, which is the point: if either ever leaks into
+  # the bundle, the build should fail loudly.
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SANITY_PROJECT_ID,NEXT_PUBLIC_SANITY_DATASET,NEXT_PUBLIC_SANITY_API_VERSION,NEXT_PUBLIC_SITE_URL,NEXT_PUBLIC_GA_ID"

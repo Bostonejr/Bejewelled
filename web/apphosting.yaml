@@ -1,0 +1,96 @@
+# Firebase App Hosting — runtime and build configuration.
+#
+# App Hosting reads this from the backend's root directory, which is set to
+# `web` (the Next app), not the repo root. See docs/PLAN.md.
+#
+# This file IS committed. `web/.env.local` is gitignored and never leaves the
+# developer's machine, but the cloud build clones the repo onto a Google
+# machine and runs `next build` there — so every variable the build needs has
+# to be declared here. `src/sanity/env.ts` throws on a missing project id, so
+# an omission fails the build rather than shipping a broken site.
+#
+# The two real secrets are Cloud Secret Manager *references*, never values.
+# Create them with, and paste the values from web/.env.local:
+#
+#   firebase apphosting:secrets:set sanity-api-read-token
+#   firebase apphosting:secrets:set resend-api-key
+
+runConfig:
+  cpu: 1
+  memoryMiB: 512
+  # Scale to zero when idle — a brochure site does not need a warm instance,
+  # and the cold start is paid only by the first visitor after a quiet spell.
+  minInstances: 0
+  # Deliberately low. /api/contact's rate limiter is in-process (5/hour), so
+  # the effective sitewide ceiling is this number times five. Raising it
+  # loosens the limiter as a side effect.
+  maxInstances: 2
+  concurrency: 80
+
+env:
+  # NEXT_PUBLIC_* are inlined into the client bundle at compile time, so they
+  # must be available at BUILD as well as RUNTIME.
+  - variable: NEXT_PUBLIC_SANITY_PROJECT_ID
+    value: 0xf46qxf
+    availability:
+      - BUILD
+      - RUNTIME
+
+  - variable: NEXT_PUBLIC_SANITY_DATASET
+    value: production
+    availability:
+      - BUILD
+      - RUNTIME
+
+  - variable: NEXT_PUBLIC_SANITY_API_VERSION
+    value: "2026-02-01"
+    availability:
+      - BUILD
+      - RUNTIME
+
+  # metadataBase, sitemap.ts and robots.ts all derive from this; left at the
+  # localhost default the live site would publish a sitemap and canonical URLs
+  # pointing at http://localhost:3000.
+  - variable: NEXT_PUBLIC_SITE_URL
+    value: https://bejewelledbuild.com
+    availability:
+      - BUILD
+      - RUNTIME
+
+  # GA4 measurement id, carried over from the Firebase Analytics config (it is
+  # the same linked GA4 property). Public by design — it appears in the page
+  # source of every site using it. Set only here, so development never reports.
+  - variable: NEXT_PUBLIC_GA_ID
+    value: G-67F1YQY07Q
+    availability:
+      - BUILD
+      - RUNTIME
+
+  # Enquiry delivery. Server-side only, so RUNTIME is enough.
+  - variable: ENQUIRY_TO
+    value: bejewelledbuild@gmail.com
+    availability:
+      - RUNTIME
+
+  # Must be a full address, not a bare domain, and the domain must be verified
+  # in Resend or every send is rejected. Resend's shared `onboarding@resend.dev`
+  # is not a fallback here: it only delivers to the address the Resend account
+  # was registered under, which is not ENQUIRY_TO above.
+  - variable: ENQUIRY_FROM
+    value: enquiries@bejewelledbuild.com
+    availability:
+      - RUNTIME
+
+  # Read token: used by sanityFetch at build time for static generation and at
+  # runtime for draft mode, hence both.
+  - variable: SANITY_API_READ_TOKEN
+    secret: sanity-api-read-token
+    availability:
+      - BUILD
+      - RUNTIME
+
+  # Only /api/contact touches this, and only at request time.
+  - variable: RESEND_API_KEY
+    secret: resend-api-key
+    availability:
+      - RUNTIME

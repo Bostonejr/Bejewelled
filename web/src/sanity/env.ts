@@ -23,3 +23,17 @@ export const readToken = process.env.SANITY_API_READ_TOKEN ?? ''
 
 export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+
+/**
+ * GA4 measurement id.
+ *
+ * This is the same property Firebase Analytics would have reported to —
+ * Firebase creates a linked GA4 property and hands back its measurement id —
+ * so it reaches the same reports without shipping the Firebase SDK to every
+ * visitor.
+ *
+ * Empty disables analytics outright, and it is deliberately left unset in
+ * development so local page views never pollute the practice's reports. Only
+ * apphosting.yaml sets it.
+ */
+export const gaId = process.env.NEXT_PUBLIC_GA_ID ?? ''

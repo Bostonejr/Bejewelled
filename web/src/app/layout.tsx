@@ -1,6 +1,7 @@
 import type {Metadata} from 'next'
 import {draftMode} from 'next/headers'
 import {Archivo, IBM_Plex_Mono, Marcellus} from 'next/font/google'
+import {GoogleAnalytics} from '@next/third-parties/google'
 import {VisualEditing} from 'next-sanity/visual-editing'
 
 import {SheetRail, SiteFooter, SiteHeader} from '@/components/chrome'
@@ -8,7 +9,7 @@ import {ImageProtection} from '@/components/ImageProtection'
 import {StructuredData} from '@/components/StructuredData'
 import {SanityLive} from '@/sanity/live'
 import {getSiteSettings} from '@/sanity/settings'
-import {siteUrl} from '@/sanity/env'
+import {gaId, siteUrl} from '@/sanity/env'
 
 import './globals.css'
 
@@ -91,6 +92,9 @@ export default async function RootLayout({
         {/* Blocks right-click, drag-off and the mobile long-press sheet on
             photographs. A deterrent, not protection — see the component. */}
         <ImageProtection />
+        {/* GA4. Inert unless NEXT_PUBLIC_GA_ID is set (see sanity/env.ts),
+            so development never reports. */}
+        {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
         <SanityLive />
         {/* Click-to-edit overlays, only ever mounted inside the Studio's
             Presentation tool. Never shipped to a visitor. */}
