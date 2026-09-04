@@ -4,7 +4,7 @@ The website for Bejewelled Enterprise — a Ghanaian architectural, engineering 
 construction practice in Kumasi.
 
 The design is a 1:1 port of the Claude Design project *Bejewelled Website Design*
-(`701da384-a368-4c18-a470-3a09dffbe175`), imported to `.design-src/` as a fidelity
+imported to `.design-src/` as a fidelity
 reference. Every visible string is a Sanity field.
 
 ## Layout
