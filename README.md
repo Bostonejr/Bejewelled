@@ -1,7 +1,7 @@
 # Bejewelled
 
 The website for Bejewelled Enterprise — a Ghanaian architectural, engineering and
-construction practice in Kumasi.
+construction practice in Kumasi and Accra.
 
 The design is a 1:1 port of the Claude Design project *Bejewelled Website Design*
 imported to `.design-src/` as a fidelity
